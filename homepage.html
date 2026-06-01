@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DuoStep — Precision. Engineered in Australia.</title>
+<meta name="description" content="DuoStep Precision — performance running socks designed, engineered and manufactured in-house in Australia. Limited runs. Nothing held back.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-black:#0C0C0C; --c-ink:#141414; --c-graphite:#1E1E1E; --c-charcoal:#2D2D2D;
+  --c-steel:#555; --c-slate:#6B6860; --c-silver:#999; --c-mist:#DDDBD4; --c-fog:#EDEAE2;
+  --c-bone:#F8F6F0; --c-white:#FFF;
+  --c-precision:#00BFDF; --c-odyssey:#8A7155; --c-wellness:#7FA885; --c-lab:#C8A86A;
+  --font-display:'Cormorant SC',Georgia,serif;
+  --font-ui:'Syne',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono','Courier New',monospace;
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;
+  --sp-10:40px;--sp-12:48px;--sp-16:64px;--sp-20:80px;--sp-24:96px;--sp-32:128px;
+  --r-sm:2px;--r-md:4px;--r-lg:8px;--r-full:9999px;
+  --sh-sm:0 1px 3px rgba(12,12,12,.06); --sh-md:0 4px 16px rgba(12,12,12,.08);
+  --sh-lg:0 12px 36px rgba(12,12,12,.12); --sh-xl:0 24px 60px rgba(12,12,12,.16);
+  --dur-fast:150ms;--dur-base:250ms;--dur-slow:400ms;--dur-deliberate:600ms;
+  --ease-out:cubic-bezier(0.16,1,0.3,1); --ease-in-out:cubic-bezier(0.65,0,0.35,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --maxw:1280px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--c-bone);color:var(--c-black);font-family:var(--font-ui);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+/* grain */
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.022;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:var(--c-black);color:var(--c-bone)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--c-black);outline-offset:3px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.mono{font-family:var(--font-mono)}
+.eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--c-slate)}
+.eyebrow.tick{display:inline-flex;align-items:center;gap:10px}
+.eyebrow.tick::before{content:'';width:28px;height:1px;background:var(--c-mist)}
+
+/* ─── ANNOUNCEMENT ─── */
+.announce{background:var(--c-black);color:var(--c-bone);font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:9px 16px}
+.announce b{color:var(--c-precision);font-weight:400}
+
+/* ─── NAV ─── */
+.nav{position:sticky;top:0;z-index:200;background:rgba(248,246,240,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-mist);transition:box-shadow var(--dur-base) var(--ease-out)}
+.nav.scrolled{box-shadow:var(--sh-sm)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.nav-logo{font-family:var(--font-ui);font-weight:800;font-size:15px;letter-spacing:.22em;text-transform:uppercase}
+.nav-logo sup{font-family:var(--font-mono);font-size:8px;letter-spacing:.1em;color:var(--c-precision);vertical-align:super;margin-left:2px}
+.nav-links{display:flex;gap:clamp(16px,2.4vw,34px);list-style:none}
+.nav-links a{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);position:relative;transition:color var(--dur-fast) var(--ease-out);padding:4px 0}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--c-black);transition:width var(--dur-base) var(--ease-out)}
+.nav-links a:hover{color:var(--c-black)}.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:var(--sp-5)}
+.nav-icon{display:grid;place-items:center;color:var(--c-black);background:none;border:none;position:relative}
+.nav-icon .dot{position:absolute;top:-3px;right:-5px;background:var(--c-precision);color:var(--c-black);font-family:var(--font-mono);font-size:9px;font-weight:500;min-width:15px;height:15px;border-radius:var(--r-full);display:grid;place-items:center;padding:0 3px}
+.nav-burger{display:none;background:none;border:none}
+/* ── SHOP DROPDOWN (CRO) ── */
+.nav-item-shop{position:relative}
+.nav-trigger{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);background:none;border:none;padding:4px 0;cursor:pointer;transition:color var(--dur-fast) var(--ease-out)}
+.nav-trigger svg{transition:transform var(--dur-base) var(--ease-out)}
+.nav-item-shop:hover .nav-trigger,.nav-item-shop:focus-within .nav-trigger,.nav-item-shop.open .nav-trigger{color:var(--c-black)}
+.nav-item-shop:hover .nav-trigger svg,.nav-item-shop:focus-within .nav-trigger svg,.nav-item-shop.open .nav-trigger svg{transform:rotate(180deg)}
+.shop-panel{position:absolute;top:calc(100% + 20px);left:0;width:min(540px,86vw);background:var(--c-bone);border:1px solid var(--c-mist);border-radius:var(--r-md);box-shadow:var(--sh-lg);padding:var(--sp-6);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(8px);transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out);z-index:210}
+.shop-panel::before{content:'';position:absolute;top:-20px;left:0;right:0;height:20px}
+.nav-item-shop:hover .shop-panel,.nav-item-shop:focus-within .shop-panel,.nav-item-shop.open .shop-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.sp-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--sp-6)}
+.sp-eyebrow{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--c-slate);margin-bottom:var(--sp-3);display:flex;align-items:center;gap:8px}
+.sp-eyebrow .live{width:6px;height:6px;border-radius:50%;background:var(--c-precision);display:inline-block;flex-shrink:0}
+.sp-prod{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px;border-radius:var(--r-sm);transition:background var(--dur-fast) var(--ease-out)}
+.sp-prod:hover{background:var(--c-fog)}
+.sp-prod .nm{display:flex;flex-direction:column}
+.sp-prod .n{font-family:var(--font-display);font-size:18px;line-height:1.05}
+.sp-prod .m{font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-slate);margin-top:3px}
+.sp-prod .p{font-family:var(--font-mono);font-size:12px;color:var(--c-black);white-space:nowrap}
+.sp-prod.out{opacity:.5}
+.sp-prod.out .p{text-decoration:line-through}
+.sp-col-div{border-left:1px solid var(--c-fog);padding-left:var(--sp-6)}
+.sp-div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-sm);transition:background var(--dur-fast) var(--ease-out)}
+.sp-div:hover{background:var(--c-fog)}
+.sp-div .dn{font-family:var(--font-ui);font-weight:600;font-size:13px}
+.sp-div .st{font-family:var(--font-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate)}
+.sp-div .st.on{color:var(--c-precision)}
+.sp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:var(--sp-5);padding-top:var(--sp-5);border-top:1px solid var(--c-mist);font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-black)}
+.sp-foot svg{transition:transform var(--dur-base) var(--ease-out)}
+.sp-foot:hover svg{transform:translateX(4px)}
+/* ── NAV CTA (CRO) ── */
+.nav-cta{font-family:var(--font-ui);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;background:var(--c-precision);color:var(--c-black);border:1.5px solid var(--c-precision);border-radius:var(--r-sm);display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:all var(--dur-base) var(--ease-out)}
+.nav-cta:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,191,223,.3)}
+.nav-cta svg{transition:transform var(--dur-base) var(--ease-out)}
+.nav-cta:hover svg{transform:translateX(3px)}
+@media(max-width:1040px){.nav-icon[data-opt]{display:none}}
+@media(max-width:880px){.nav-links,.nav-cta{display:none}.nav-burger{display:grid;place-items:center}}
+
+/* ─── HERO ─── */
+.hero{position:relative;min-height:calc(100vh - 90px);min-height:calc(100svh - 90px);display:flex;align-items:center;overflow:hidden;padding:clamp(40px,7vw,80px) 0}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(12,12,12,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(12,12,12,.04) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 75% at 60% 45%,#000 25%,transparent 78%);-webkit-mask-image:radial-gradient(ellipse 80% 75% at 60% 45%,#000 25%,transparent 78%)}
+.reg{position:absolute;width:16px;height:16px;opacity:.4;z-index:2}
+.reg::before,.reg::after{content:'';position:absolute;background:var(--c-steel)}
+.reg::before{width:16px;height:1px}.reg::after{width:1px;height:16px}
+.reg.tl{top:24px;left:24px}.reg.tr{top:24px;right:24px;transform:scaleX(-1)}
+.reg.bl{bottom:24px;left:24px;transform:scaleY(-1)}.reg.br{bottom:24px;right:24px;transform:scale(-1)}
+.hero-inner{position:relative;z-index:3;width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px);display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,56px);align-items:center}
+.hero-copy{max-width:620px}
+.hero-eyebrow{margin-bottom:var(--sp-6)}
+.hero h1{font-family:var(--font-display);font-weight:400;font-size:clamp(46px,8.2vw,116px);line-height:.92;letter-spacing:.005em}
+.hero h1 .accent{font-style:italic;font-weight:500}
+.hero-sub{font-size:clamp(15px,1.5vw,17px);color:var(--c-steel);line-height:1.7;max-width:440px;margin-top:var(--sp-6)}
+.hero-cta{display:flex;gap:var(--sp-4);align-items:center;flex-wrap:wrap;margin-top:var(--sp-8)}
+.hero-meta{display:flex;gap:var(--sp-8);margin-top:var(--sp-10);flex-wrap:wrap}
+.hero-meta .hm{border-top:1px solid var(--c-mist);padding-top:var(--sp-3);min-width:96px}
+.hero-meta .hm .v{font-family:var(--font-display);font-size:26px;line-height:1}
+.hero-meta .hm .l{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-slate);margin-top:6px}
+
+/* buttons */
+.btn{font-family:var(--font-ui);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:15px 30px;border-radius:var(--r-sm);border:1.5px solid transparent;display:inline-flex;align-items:center;gap:9px;transition:all var(--dur-base) var(--ease-out)}
+.btn-primary{background:var(--c-black);color:var(--c-bone);border-color:var(--c-black)}
+.btn-primary:hover{background:var(--c-charcoal);transform:translateY(-1px);box-shadow:var(--sh-md)}
+.btn-secondary{background:transparent;color:var(--c-black);border-color:var(--c-black)}
+.btn-secondary:hover{background:var(--c-black);color:var(--c-bone)}
+.btn-precision{background:var(--c-precision);color:var(--c-black);border-color:var(--c-precision)}
+.btn-precision:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,191,223,.32)}
+.btn-lg{padding:18px 40px;font-size:13px}
+.btn svg{transition:transform var(--dur-base) var(--ease-out)}
+.btn:hover svg{transform:translateX(3px)}
+
+/* hero product stage */
+.hero-stage{position:relative;aspect-ratio:1/1.04;background:var(--c-white);border:1px solid var(--c-mist);border-radius:var(--r-md);box-shadow:var(--sh-lg);display:grid;place-items:center;overflow:hidden}
+.hero-stage::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(0,191,223,.07),transparent 60%)}
+.stage-tag{position:absolute;top:16px;left:16px;font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:var(--c-black);color:var(--c-bone);padding:5px 11px;border-radius:var(--r-full);z-index:3}
+.stage-spec{position:absolute;font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;color:var(--c-slate);z-index:3}
+.stage-spec.s1{top:18px;right:18px;text-align:right}
+.stage-spec.s2{bottom:18px;left:18px}
+.stage-spec.s3{bottom:18px;right:18px;text-align:right}
+@media(max-width:880px){
+  .hero-inner{grid-template-columns:1fr;gap:var(--sp-10)}
+  .hero-stage{max-width:420px;margin:0 auto;width:100%}
+  .hero{min-height:auto}
+}
+
+/* ─── TICKER ─── */
+.ticker{background:var(--c-black);color:var(--c-bone);overflow:hidden;border-top:1px solid var(--c-graphite);border-bottom:1px solid var(--c-graphite)}
+.ticker-track{display:flex;gap:0;white-space:nowrap;animation:scrollx 38s linear infinite;will-change:transform}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-item{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-silver);padding:14px 28px;display:inline-flex;align-items:center;gap:28px}
+.ticker-item::after{content:'';width:4px;height:4px;border-radius:50%;background:var(--c-precision)}
+@keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── SECTION FRAME ─── */
+section{position:relative}
+.sec{padding:clamp(72px,11vw,140px) 0}
+.sec-head{display:grid;grid-template-columns:120px 1fr;gap:var(--sp-8);margin-bottom:clamp(40px,6vw,72px)}
+.sec-num{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);border-top:2px solid var(--c-black);padding-top:10px;align-self:start}
+.sec-title{font-family:var(--font-display);font-weight:400;font-size:clamp(34px,5.4vw,62px);line-height:.98}
+.sec-intro{font-size:clamp(14px,1.4vw,16.5px);color:var(--c-steel);line-height:1.7;max-width:600px;margin-top:var(--sp-5)}
+@media(max-width:680px){.sec-head{grid-template-columns:1fr;gap:var(--sp-4)}}
+
+/* ─── 02 MANIFESTO ─── */
+.manifesto{background:var(--c-black);color:var(--c-bone);overflow:hidden}
+.manifesto .manifest-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(248,246,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,246,240,.03) 1px,transparent 1px);background-size:64px 64px}
+.manifest-inner{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
+.manifest-lead{font-family:var(--font-display);font-weight:400;font-size:clamp(36px,5.2vw,66px);line-height:1.02;letter-spacing:.01em}
+.manifest-lead em{font-style:italic;color:var(--c-precision)}
+.manifest-body .eyebrow{color:var(--c-silver);margin-bottom:var(--sp-6)}
+.manifest-body p{font-size:15.5px;line-height:1.8;color:var(--c-mist);margin-bottom:var(--sp-6);max-width:480px}
+.manifest-body p b{color:var(--c-bone);font-weight:600}
+.manifest-sign{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-silver);display:flex;align-items:center;gap:10px;margin-top:var(--sp-8)}
+.manifest-sign::before{content:'';width:32px;height:1px;background:var(--c-charcoal)}
+@media(max-width:760px){.manifest-inner{grid-template-columns:1fr;gap:var(--sp-10)}}
+
+/* ─── 03 ENGINEERED ─── */
+.eng-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,5vw,72px);align-items:center}
+.eng-map{position:relative;background:var(--c-white);border:1px solid var(--c-mist);border-radius:var(--r-md);padding:clamp(24px,4vw,48px);box-shadow:var(--sh-sm);display:grid;place-items:center;aspect-ratio:1/1.08}
+.eng-map .map-cap{position:absolute;top:16px;left:16px;font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-slate)}
+.eng-zones{list-style:none;display:flex;flex-direction:column;gap:var(--sp-2)}
+.zone{display:grid;grid-template-columns:auto 1fr;gap:var(--sp-5);align-items:start;padding:var(--sp-5) var(--sp-2);border-top:1px solid var(--c-fog);transition:background var(--dur-base) var(--ease-out);cursor:default}
+.zone:hover{background:var(--c-fog)}
+.zone .znum{font-family:var(--font-mono);font-size:11px;color:var(--c-precision);padding-top:3px}
+.zone h3{font-family:var(--font-ui);font-weight:700;font-size:15px;letter-spacing:.01em;margin-bottom:5px}
+.zone p{font-size:13.5px;color:var(--c-steel);line-height:1.65}
+.zone .zspec{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--c-slate);margin-top:6px}
+@media(max-width:820px){.eng-layout{grid-template-columns:1fr;gap:var(--sp-10)}.eng-map{max-width:380px;margin:0 auto;width:100%}}
+
+/* ─── 04 THE DROP / PRODUCTS ─── */
+.drop-head{display:flex;justify-content:space-between;align-items:flex-end;gap:var(--sp-6);flex-wrap:wrap;margin-bottom:clamp(32px,5vw,56px)}
+.drop-head .right{text-align:right}
+.drop-head .right .run{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-slate)}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-5)}
+@media(max-width:1000px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.products{grid-template-columns:1fr}}
+.pcard{background:var(--c-white);border:1px solid var(--c-fog);border-radius:var(--r-md);overflow:hidden;transition:box-shadow var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out);display:flex;flex-direction:column}
+.pcard:hover{box-shadow:var(--sh-md);transform:translateY(-3px)}
+.pcard-img{aspect-ratio:3/4;position:relative;display:grid;place-items:center;background:var(--c-fog);overflow:hidden}
+/* ── MEDIA PLACEHOLDER · design-phase photography slots ── */
+.media-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-3);text-align:center;padding:clamp(16px,5%,32px);z-index:2;pointer-events:none}
+.media-ph .ph-icon{width:42px;height:42px;color:var(--c-slate);opacity:.42;margin-bottom:var(--sp-1);transition:transform var(--dur-base) var(--ease-out)}
+.media-ph .ph-eyebrow{font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--c-slate)}
+.media-ph .ph-title{font-family:var(--font-display);font-weight:400;font-size:clamp(19px,2.6vw,30px);line-height:1.05;color:var(--c-black)}
+.media-ph .ph-detail{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-steel)}
+.media-ph .ph-cap{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-slate);display:inline-flex;align-items:center;gap:9px;margin-top:2px}
+.media-ph .ph-cap::before,.media-ph .ph-cap::after{content:'';width:16px;height:1px;background:var(--c-mist)}
+.media-ph.compact{gap:6px;padding:8px}
+.media-ph.compact .ph-icon{width:30px;height:30px;margin:0;opacity:.5}
+.pcard:hover .pcard-img .media-ph .ph-icon{transform:translateY(-3px)}
+.badge{position:absolute;top:12px;left:12px;font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:var(--r-full);z-index:3}
+.badge-new{background:var(--c-black);color:var(--c-bone)}
+.badge-limited{background:var(--c-precision);color:var(--c-black)}
+.badge-sold{background:var(--c-white);color:var(--c-steel);border:1px solid var(--c-mist)}
+.pcard-body{padding:var(--sp-5);display:flex;flex-direction:column;flex:1}
+.pcard-cat{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-precision);margin-bottom:var(--sp-2)}
+.pcard-name{font-family:var(--font-display);font-size:21px;line-height:1.15;margin-bottom:var(--sp-1)}
+.pcard-height{font-size:12.5px;color:var(--c-steel);margin-bottom:var(--sp-3)}
+.pcard-rating{display:flex;align-items:center;gap:6px;margin-bottom:var(--sp-3)}
+.stars{color:var(--c-lab);font-size:12px;letter-spacing:1px}
+.rating-count{font-family:var(--font-mono);font-size:10px;color:var(--c-slate)}
+.pcard-swatches{display:flex;gap:6px;margin-bottom:var(--sp-4)}
+.sw{width:16px;height:16px;border-radius:50%;border:1px solid var(--c-mist);position:relative}
+.sw.more{font-family:var(--font-mono);font-size:9px;color:var(--c-slate);display:grid;place-items:center;border:none;width:auto}
+.pcard-foot{margin-top:auto}
+.pcard-price{font-family:var(--font-mono);font-weight:500;font-size:15px;margin-bottom:var(--sp-3)}
+.quick-add{width:100%;font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:12px;background:var(--c-black);color:var(--c-bone);border:none;border-radius:var(--r-sm);transition:all var(--dur-base) var(--ease-out)}
+.quick-add:hover{background:var(--c-charcoal)}
+.quick-add.notify{background:var(--c-fog);color:var(--c-slate)}
+
+/* ─── 05 DIVISIONS ─── */
+.divisions{background:var(--c-fog)}
+.div-list{display:grid;gap:1px;background:var(--c-mist);border:1px solid var(--c-mist);border-radius:var(--r-md);overflow:hidden}
+.div-row{display:grid;grid-template-columns:64px 1fr auto;gap:var(--sp-6);align-items:center;background:var(--c-bone);padding:clamp(20px,3vw,32px) clamp(20px,3vw,36px);transition:background var(--dur-base) var(--ease-out)}
+.div-row:hover{background:var(--c-white)}
+.div-row .idx{font-family:var(--font-mono);font-size:11px;color:var(--c-slate)}
+.div-row .dname{font-family:var(--font-display);font-size:clamp(24px,3.4vw,40px);line-height:1}
+.div-row .ddesc{font-size:13px;color:var(--c-steel);margin-top:6px;max-width:560px;line-height:1.6}
+.div-row .accent-bar{width:3px;height:38px;border-radius:2px}
+.acc-precision{background:var(--c-precision)} .acc-odyssey{background:var(--c-odyssey)}
+.acc-wellness{background:var(--c-wellness)} .acc-lab{background:var(--c-lab)}
+.div-mid{display:flex;align-items:center;gap:var(--sp-5)}
+.div-status{font-family:var(--font-mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:var(--r-full);white-space:nowrap}
+.status-live{background:var(--c-black);color:var(--c-bone)}
+.status-soon{background:transparent;color:var(--c-slate);border:1px solid var(--c-mist)}
+.div-link{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-black);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.div-link.muted{color:var(--c-slate)}
+.div-link svg{transition:transform var(--dur-base) var(--ease-out)}
+.div-row:hover .div-link svg{transform:translateX(3px)}
+@media(max-width:760px){
+  .div-row{grid-template-columns:1fr;gap:var(--sp-4);text-align:left}
+  .div-mid{flex-wrap:wrap}
+}
+
+/* ─── 06 NEWSLETTER ─── */
+.signup{background:var(--c-black);color:var(--c-bone);overflow:hidden;position:relative}
+.signup .sg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(248,246,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,246,240,.03) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse 70% 90% at 50% 50%,#000 30%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 70% 90% at 50% 50%,#000 30%,transparent 80%)}
+.signup-inner{position:relative;text-align:center;max-width:680px;margin:0 auto}
+.signup h2{font-family:var(--font-display);font-weight:400;font-size:clamp(32px,5vw,58px);line-height:1.02;margin:var(--sp-5) 0 var(--sp-4)}
+.signup p{font-size:15px;color:var(--c-mist);max-width:440px;margin:0 auto var(--sp-8);line-height:1.7}
+.signup-form{display:flex;gap:var(--sp-3);max-width:480px;margin:0 auto;flex-wrap:wrap}
+.signup-form input{flex:1;min-width:200px;font-family:var(--font-ui);font-size:14px;padding:15px 18px;background:rgba(255,255,255,.06);border:1.5px solid var(--c-charcoal);border-radius:var(--r-sm);color:var(--c-bone);outline:none;transition:border-color var(--dur-fast) var(--ease-out)}
+.signup-form input::placeholder{color:var(--c-silver)}
+.signup-form input:focus{border-color:var(--c-precision)}
+.signup-note{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-silver);margin-top:var(--sp-5)}
+
+/* ─── FOOTER ─── */
+.foot{background:var(--c-ink);color:var(--c-bone);padding:clamp(56px,8vw,88px) 0 var(--sp-10)}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--sp-8);padding-bottom:var(--sp-12);border-bottom:1px solid var(--c-charcoal)}
+.foot-brand .fb-logo{font-family:var(--font-ui);font-weight:800;font-size:18px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:var(--sp-4)}
+.foot-brand p{font-size:13px;color:var(--c-silver);line-height:1.7;max-width:300px}
+.foot-col h4{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-silver);margin-bottom:var(--sp-5)}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:var(--sp-3)}
+.foot-col a{font-size:13px;color:var(--c-mist);transition:color var(--dur-fast) var(--ease-out)}
+.foot-col a:hover{color:var(--c-bone)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-4);padding-top:var(--sp-8);flex-wrap:wrap}
+.foot-bottom p{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--c-silver)}
+@media(max-width:760px){.foot-top{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .ticker-track{animation:none!important}
+}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;top:76px;right:24px;z-index:500;display:inline-flex;align-items:center;gap:12px;background:var(--c-black);color:var(--c-bone);padding:14px 22px;border-radius:var(--r-md);font-size:13px;box-shadow:var(--sh-lg);transform:translateY(-16px);opacity:0;pointer-events:none;transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out)}
+.toast.show{opacity:1;transform:none}
+.toast .tdot{width:8px;height:8px;border-radius:50%;background:var(--c-precision)}
+
+/* mobile menu */
+.mmenu{position:fixed;inset:0;z-index:400;background:var(--c-bone);transform:translateX(100%);transition:transform var(--dur-slow) var(--ease-out);display:flex;flex-direction:column;padding:24px}
+.mmenu.open{transform:none}
+.mmenu-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-6)}
+.mmenu-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-slate);display:flex;align-items:center;gap:8px;margin-bottom:var(--sp-6)}
+.mmenu-eyebrow .live{width:6px;height:6px;border-radius:50%;background:var(--c-precision)}
+.mmenu-nav{display:flex;flex-direction:column}
+.mmenu-nav a{font-family:var(--font-display);font-size:34px;padding:14px 0;border-bottom:1px solid var(--c-fog)}
+.mmenu-cta{margin-top:var(--sp-8);width:100%;justify-content:center;padding:16px 28px;font-size:13px}
+.mmenu-trust{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5);margin-top:var(--sp-8)}
+.mmenu-trust span{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);display:inline-flex;align-items:center;gap:7px}
+.mmenu-trust span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--c-precision)}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE -->
+<div class="announce">Run 001 — Precision Series · Now Live · <b>76 / 200 pairs remain</b> · Free express shipping over AUD $120</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">DuoStep<sup>AU</sup></a>
+    <nav class="nav-primary" aria-label="Primary">
+      <ul class="nav-links">
+        <li class="nav-item-shop">
+          <button class="nav-trigger" id="shopTrigger" aria-expanded="false" aria-haspopup="true" aria-controls="shopPanel">Shop
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="shop-panel" id="shopPanel" role="menu" aria-label="Shop">
+            <div class="sp-grid">
+              <div class="sp-col">
+                <div class="sp-eyebrow"><span class="live"></span>Run 001 · Live · 76 pairs remain</div>
+                <a class="sp-prod" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Low Cut · below ankle</span></span><span class="p">AUD $89</span></a>
+                <a class="sp-prod" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Ankle · at ankle bone</span></span><span class="p">AUD $92</span></a>
+                <a class="sp-prod" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Mini Crew · mid-shin</span></span><span class="p">AUD $95</span></a>
+                <a class="sp-prod out" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Crew · this run complete</span></span><span class="p">AUD $98</span></a>
+              </div>
+              <div class="sp-col sp-col-div">
+                <div class="sp-eyebrow">The House</div>
+                <a class="sp-div" href="#divisions" role="menuitem"><span class="dn">Precision</span><span class="st on">● Live</span></a>
+                <a class="sp-div" href="#signup" role="menuitem"><span class="dn">Odyssey</span><span class="st">Soon</span></a>
+                <a class="sp-div" href="#signup" role="menuitem"><span class="dn">Wellness</span><span class="st">Soon</span></a>
+                <a class="sp-div" href="#signup" role="menuitem"><span class="dn">Custom Lab</span><span class="st">Collabs</span></a>
+              </div>
+            </div>
+            <a class="sp-foot" href="#drop">Shop all Precision <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </li>
+        <li><a href="#engineered">Engineering</a></li>
+        <li><a href="#divisions">The House</a></li>
+        <li><a href="#story">About</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-icon" data-opt aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="nav-icon" data-opt aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+      <button class="nav-icon" aria-label="Cart" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="dot" id="cartDot">0</span></button>
+      <a href="#drop" class="nav-cta">Shop the Drop <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg></a>
+      <button class="nav-burger nav-icon" aria-label="Menu" id="burger"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mmenu" id="mmenu">
+  <div class="mmenu-top">
+    <span class="nav-logo">DuoStep<sup>AU</sup></span>
+    <button class="nav-icon" id="mclose" aria-label="Close menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="mmenu-eyebrow"><span class="live"></span>Run 001 · Live · 76 pairs remain</div>
+  <nav class="mmenu-nav" aria-label="Mobile">
+    <a href="#drop">Shop the Drop</a>
+    <a href="#engineered">Engineering</a>
+    <a href="#divisions">The House</a>
+    <a href="#story">About</a>
+  </nav>
+  <a href="#drop" class="btn btn-precision mmenu-cta">Shop the Precision Drop <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  <div class="mmenu-trust"><span>Free express over $120</span><span>30-day returns</span><span>Australian made</span></div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <span class="reg tl"></span><span class="reg tr"></span><span class="reg bl"></span><span class="reg br"></span>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="hero-eyebrow eyebrow tick">Precision Series · Run 001 / 200</div>
+      <h1>We don't make&nbsp;socks,<br>we make <span class="accent">perfection.</span></h1>
+      <p class="hero-sub">Performance running socks designed, engineered and constructed entirely in-house — in Australia. Released in finite runs. Nothing held back.</p>
+      <div class="hero-cta">
+        <a href="#drop" class="btn btn-precision btn-lg">
+          Shop the Precision Drop
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+        </a>
+        <a href="#engineered" class="btn btn-secondary btn-lg">The Engineering</a>
+      </div>
+      <div class="hero-meta">
+        <div class="hm"><div class="v">In-house</div><div class="l">Design + Make</div></div>
+        <div class="hm"><div class="v">18.5μ</div><div class="l">Merino Inlay</div></div>
+        <div class="hm"><div class="v">200</div><div class="l">Pairs / Run</div></div>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <span class="stage-tag">Run 001</span>
+      <span class="stage-spec s1">PRECISION-SERIES<br>AU-MADE</span>
+      <span class="stage-spec s2">FIG. 01</span>
+      <span class="stage-spec s3">MERINO ·<br>RECYCLED NYLON</span>
+      <!-- PRODUCT PHOTOGRAPHY PLACEHOLDER -->
+      <div class="media-ph">
+        <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="ph-eyebrow">Product Photography</span>
+        <span class="ph-title">Run-Series I</span>
+        <span class="ph-detail">Precision · Run 001</span>
+        <span class="ph-cap">Hero studio shot · on bone</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Designed in-house</span><span class="ticker-item">Knitted in Australia</span><span class="ticker-item">Compression-mapped arch</span><span class="ticker-item">18.5μ Merino inlay</span><span class="ticker-item">Recycled nylon warp</span><span class="ticker-item">Finite runs</span><span class="ticker-item">Total quality control</span>
+    <span class="ticker-item">Designed in-house</span><span class="ticker-item">Knitted in Australia</span><span class="ticker-item">Compression-mapped arch</span><span class="ticker-item">18.5μ Merino inlay</span><span class="ticker-item">Recycled nylon warp</span><span class="ticker-item">Finite runs</span><span class="ticker-item">Total quality control</span>
+  </div>
+</div>
+
+<!-- 02 MANIFESTO -->
+<section class="manifesto sec" id="story">
+  <div class="manifest-grid"></div>
+  <div class="wrap">
+    <div class="manifest-inner">
+      <div class="reveal">
+        <p class="manifest-lead">Your shoes are<br>only <em>half</em> the story.</p>
+      </div>
+      <div class="manifest-body reveal">
+        <p class="eyebrow">What makes DuoStep different</p>
+        <p>We design and manufacture <b>everything in-house</b>. That control means we know exactly what goes into every pair — from fibre selection to final quality check.</p>
+        <p>No outsourcing. No compromises. No held-back specs to protect a margin. The engineering is the product, and the product is the proof.</p>
+        <div class="manifest-sign">Designed + made in Australia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ENGINEERED -->
+<section class="sec" id="engineered">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03 / Engineering</span>
+      <div>
+        <h2 class="sec-title">Engineered, zone<br>by zone.</h2>
+        <p class="sec-intro">Comfort and support aren't soft promises — they're engineered outcomes. Every zone of a Precision sock is constructed for a job, and tested until it holds.</p>
+      </div>
+    </div>
+    <div class="eng-layout">
+      <div class="eng-map reveal" id="engMap">
+        <span class="map-cap">FIG. 02 — Construction Map</span>
+        <div class="media-ph">
+          <svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span class="ph-eyebrow">Annotated Photography</span>
+          <span class="ph-title">Construction Map</span>
+          <span class="ph-detail">Cuff · Arch · Toe</span>
+          <span class="ph-cap">Zones called out on product</span>
+        </div>
+      </div>
+      <ul class="eng-zones reveal">
+        <li class="zone"><span class="znum">01</span><div><h3>Locked cuff, no slip</h3><p>A ribbed compression cuff holds the sock exactly where it's set — no roll, no migration, mid-run or mid-race.</p><div class="zspec">RIBBED-COMPRESSION · 200-NEEDLE</div></div></li>
+        <li class="zone"><span class="znum">02</span><div><h3>Compression-mapped arch</h3><p>A graduated arch band wraps the midfoot for support that's measured, not padded — engineered to hold through the long run.</p><div class="zspec">ARCH-MAP · GRADUATED 18–22 mmHg</div></div></li>
+        <li class="zone"><span class="znum">03</span><div><h3>Seamless toe box</h3><p>A hand-linked toe closure removes the ridge that blisters. Cushioning that's placed where impact lands, stripped where it isn't.</p><div class="zspec">HAND-LINKED · ZONED-CUSHION</div></div></li>
+        <li class="zone"><span class="znum">04</span><div><h3>Merino + recycled nylon</h3><p>An 18.5-micron Merino inlay on a recycled nylon warp — natural temperature regulation, built to outlast the kilometres.</p><div class="zspec">MERINO-18.5μ · RECYCLED-NYLON</div></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 04 THE DROP -->
+<section class="sec" id="drop" style="background:var(--c-white);border-top:1px solid var(--c-fog);border-bottom:1px solid var(--c-fog)">
+  <div class="wrap">
+    <div class="drop-head reveal">
+      <div>
+        <p class="eyebrow tick" style="margin-bottom:14px">The Precision Drop</p>
+        <h2 class="sec-title">One sock. Four heights.</h2>
+      </div>
+      <div class="right">
+        <div class="run">Run 001 / 200 pairs</div>
+        <div class="run" style="color:var(--c-precision)">● Live now</div>
+      </div>
+    </div>
+    <div class="products">
+      <!-- card template repeated -->
+      <article class="pcard reveal">
+        <div class="pcard-img"><span class="badge badge-limited">Limited · 200</span>__SOCK__</div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Precision</div>
+          <div class="pcard-name">Run-Series I</div>
+          <div class="pcard-height">Low Cut · below the ankle</div>
+          <div class="pcard-rating"><span class="stars">★★★★★</span><span class="rating-count">(24)</span></div>
+          <div class="pcard-swatches"><span class="sw" style="background:#0C0C0C"></span><span class="sw" style="background:#F8F6F0"></span><span class="sw" style="background:#00BFDF"></span><span class="sw" style="background:#8A7155"></span><span class="sw more">+2</span></div>
+          <div class="pcard-foot"><div class="pcard-price">AUD $89</div><button class="quick-add" data-add="Run-Series I · Low Cut">Add to Cart</button></div>
+        </div>
+      </article>
+      <article class="pcard reveal">
+        <div class="pcard-img"><span class="badge badge-new">New · Run 001</span>__SOCK__</div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Precision</div>
+          <div class="pcard-name">Run-Series I</div>
+          <div class="pcard-height">Ankle · at the ankle bone</div>
+          <div class="pcard-rating"><span class="stars">★★★★★</span><span class="rating-count">(31)</span></div>
+          <div class="pcard-swatches"><span class="sw" style="background:#0C0C0C"></span><span class="sw" style="background:#F8F6F0"></span><span class="sw" style="background:#00BFDF"></span><span class="sw" style="background:#8A7155"></span><span class="sw more">+2</span></div>
+          <div class="pcard-foot"><div class="pcard-price">AUD $92</div><button class="quick-add" data-add="Run-Series I · Ankle">Add to Cart</button></div>
+        </div>
+      </article>
+      <article class="pcard reveal">
+        <div class="pcard-img"><span class="badge badge-new">New · Run 001</span>__SOCK__</div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Precision</div>
+          <div class="pcard-name">Run-Series I</div>
+          <div class="pcard-height">Mini Crew · mid-shin</div>
+          <div class="pcard-rating"><span class="stars">★★★★☆</span><span class="rating-count">(18)</span></div>
+          <div class="pcard-swatches"><span class="sw" style="background:#0C0C0C"></span><span class="sw" style="background:#F8F6F0"></span><span class="sw" style="background:#00BFDF"></span><span class="sw" style="background:#8A7155"></span><span class="sw more">+2</span></div>
+          <div class="pcard-foot"><div class="pcard-price">AUD $95</div><button class="quick-add" data-add="Run-Series I · Mini Crew">Add to Cart</button></div>
+        </div>
+      </article>
+      <article class="pcard reveal">
+        <div class="pcard-img"><span class="badge badge-sold">This run is complete</span>__SOCK__</div>
+        <div class="pcard-body">
+          <div class="pcard-cat">Precision</div>
+          <div class="pcard-name">Run-Series I</div>
+          <div class="pcard-height">Crew · full calf</div>
+          <div class="pcard-rating"><span class="stars">★★★★★</span><span class="rating-count">(42)</span></div>
+          <div class="pcard-swatches"><span class="sw" style="background:#0C0C0C"></span><span class="sw" style="background:#F8F6F0"></span><span class="sw" style="background:#00BFDF"></span><span class="sw more">+3</span></div>
+          <div class="pcard-foot"><div class="pcard-price" style="color:var(--c-slate)">AUD $98</div><button class="quick-add notify" data-add="">Notify Me — Next Run</button></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 05 DIVISIONS -->
+<section class="divisions sec" id="divisions">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">05 / The House</span>
+      <div>
+        <h2 class="sec-title">Four divisions,<br>one standard.</h2>
+        <p class="sec-intro">DuoStep is a house of performance. Precision launches first. Each division that follows is engineered to the same standard — announced as a drop, never a launch.</p>
+      </div>
+    </div>
+    <div class="div-list reveal">
+      <div class="div-row">
+        <div class="div-mid"><span class="accent-bar acc-precision"></span><span class="idx">01/04</span></div>
+        <div><div class="dname">Precision</div><div class="ddesc">High-performance running &amp; fitness socks. Technical materials, engineered for the kilometres.</div></div>
+        <div class="div-mid"><span class="div-status status-live">● Live</span><a href="#drop" class="div-link">Shop the drop <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></a></div>
+      </div>
+      <div class="div-row">
+        <div class="div-mid"><span class="accent-bar acc-odyssey"></span><span class="idx">02/04</span></div>
+        <div><div class="dname">Odyssey</div><div class="ddesc">Adventure &amp; hiking socks built from the world's finest natural fibres. For those who go further.</div></div>
+        <div class="div-mid"><span class="div-status status-soon">Coming Soon</span><a href="#signup" class="div-link muted">Join waitlist <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></a></div>
+      </div>
+      <div class="div-row">
+        <div class="div-mid"><span class="accent-bar acc-wellness"></span><span class="idx">03/04</span></div>
+        <div><div class="dname">Wellness</div><div class="ddesc">Technical grip and construction engineered for pilates and yoga. Performance, not therapy.</div></div>
+        <div class="div-mid"><span class="div-status status-soon">Coming Soon</span><a href="#signup" class="div-link muted">Join waitlist <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></a></div>
+      </div>
+      <div class="div-row">
+        <div class="div-mid"><span class="accent-bar acc-lab"></span><span class="idx">04/04</span></div>
+        <div><div class="dname">Custom Lab</div><div class="ddesc">Brand collaborations and limited-edition partnerships. Our full in-house capability, opened up.</div></div>
+        <div class="div-mid"><span class="div-status status-soon">Collabs &amp; Drops</span><a href="#signup" class="div-link muted">Enquire <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 SIGNUP -->
+<section class="signup sec" id="signup">
+  <div class="sg-grid"></div>
+  <div class="wrap">
+    <div class="signup-inner reveal">
+      <p class="eyebrow" style="color:var(--c-silver)">Drop Access</p>
+      <h2>First access to every drop.</h2>
+      <p>No noise, no promotions — just what matters. Be told when the next run is confirmed, before it's gone.</p>
+      <form class="signup-form" onsubmit="return false">
+        <input type="email" id="signupEmail" name="email" placeholder="you@example.com" aria-label="Email address" autocomplete="email" required>
+        <button class="btn btn-precision" type="submit">Get Access</button>
+      </form>
+      <p class="signup-note">We respect the inbox the way we respect the foot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="fb-logo">DuoStep</div>
+        <p>Luxury athletic socks, designed and manufactured in-house in Australia. Released in finite runs.</p>
+      </div>
+      <div class="foot-col"><h4>Shop</h4><ul><li><a href="#drop">The Precision Drop</a></li><li><a href="product.html">Run-Series I</a></li><li><a href="#">Size Guide</a></li><li><a href="#signup">Gift Cards</a></li></ul></div>
+      <div class="foot-col"><h4>The House</h4><ul><li><a href="#story">Made in Australia</a></li><li><a href="#engineered">Engineering</a></li><li><a href="#divisions">Divisions</a></li><li><a href="#">Custom Lab</a></li></ul></div>
+      <div class="foot-col"><h4>Support</h4><ul><li><a href="#">Shipping &amp; Returns</a></li><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li><li><a href="#">Care Guide</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 DuoStep · Australian Made</p>
+      <p>PRECISION · ODYSSEY · WELLNESS · CUSTOM LAB</p>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="tdot"></span><span id="toastMsg">Added to cart</span></div>
+
+<script>
+/* product photography placeholder injected into product cards */
+const SOCK = `<div class="media-ph">
+<svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+<span class="ph-eyebrow">Product Photography</span>
+<span class="ph-title">Run-Series I</span>
+<span class="ph-detail">Studio · on bone</span></div>`;
+document.querySelectorAll('.pcard-img').forEach(el=>el.innerHTML=el.innerHTML.replace('__SOCK__',SOCK));
+
+/* sticky nav shadow */
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10));
+
+/* reveal */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* eng map zone reveal */
+const em=document.getElementById('engMap');
+new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting)em.classList.add('active')}),{threshold:.4}).observe(em);
+
+/* cart + toast */
+let cart=0;const dot=document.getElementById('cartDot'),toast=document.getElementById('toast'),tmsg=document.getElementById('toastMsg');let tt;
+function showToast(m){tmsg.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2800)}
+document.querySelectorAll('.quick-add').forEach(b=>b.addEventListener('click',()=>{
+  const item=b.dataset.add;
+  if(!item){showToast('We’ll tell you when the next run is confirmed');return}
+  cart++;dot.textContent=cart;showToast('Added — '+item);
+}));
+document.getElementById('cartBtn').addEventListener('click',()=>showToast(cart?cart+' pair'+(cart>1?'s':'')+' in cart':'Your cart is empty'));
+document.querySelector('.signup-form').addEventListener('submit',()=>showToast('You’re on the list — first access secured'));
+
+/* shop dropdown — click/keyboard toggle (hover handled by CSS) */
+const shopItem=document.querySelector('.nav-item-shop'),shopTrigger=document.getElementById('shopTrigger');
+if(shopItem&&shopTrigger){
+  shopTrigger.addEventListener('click',e=>{e.stopPropagation();const open=shopItem.classList.toggle('open');shopTrigger.setAttribute('aria-expanded',open)});
+  document.addEventListener('click',e=>{if(!shopItem.contains(e.target)){shopItem.classList.remove('open');shopTrigger.setAttribute('aria-expanded','false')}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){shopItem.classList.remove('open');shopTrigger.setAttribute('aria-expanded','false')}});
+}
+
+/* mobile menu */
+const mm=document.getElementById('mmenu');
+document.getElementById('burger').addEventListener('click',()=>mm.classList.add('open'));
+document.getElementById('mclose').addEventListener('click',()=>mm.classList.remove('open'));
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.remove('open')));
+</script>
+</body>
+</html>

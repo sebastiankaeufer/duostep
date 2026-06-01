@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Run-Series I · Precision — DuoStep</title>
+<meta name="description" content="Run-Series I — performance running socks. 18.5μ Merino inlay, recycled nylon warp, compression-mapped arch. Designed and made in-house in Australia. Limited to 200 pairs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c-black:#0C0C0C;--c-ink:#141414;--c-graphite:#1E1E1E;--c-charcoal:#2D2D2D;
+  --c-steel:#555;--c-slate:#6B6860;--c-silver:#999;--c-mist:#DDDBD4;--c-fog:#EDEAE2;
+  --c-bone:#F8F6F0;--c-white:#FFF;
+  --c-precision:#00BFDF;--c-odyssey:#8A7155;--c-wellness:#7FA885;--c-lab:#C8A86A;
+  --font-display:'Cormorant SC',Georgia,serif;--font-ui:'Syne',system-ui,sans-serif;--font-mono:'IBM Plex Mono','Courier New',monospace;
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;--sp-16:64px;--sp-20:80px;--sp-24:96px;
+  --r-sm:2px;--r-md:4px;--r-lg:8px;--r-full:9999px;
+  --sh-sm:0 1px 3px rgba(12,12,12,.06);--sh-md:0 4px 16px rgba(12,12,12,.08);--sh-lg:0 12px 36px rgba(12,12,12,.12);--sh-xl:0 24px 60px rgba(12,12,12,.16);
+  --dur-fast:150ms;--dur-base:250ms;--dur-slow:400ms;--dur-deliberate:600ms;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);--ease-in-out:cubic-bezier(0.65,0,0.35,1);--ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --maxw:1280px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--c-bone);color:var(--c-black);font-family:var(--font-ui);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.022;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+::selection{background:var(--c-black);color:var(--c-bone)}
+a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--c-black);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--c-slate)}
+.eyebrow.tick{display:inline-flex;align-items:center;gap:10px}.eyebrow.tick::before{content:'';width:28px;height:1px;background:var(--c-mist)}
+
+/* ANNOUNCE + NAV (shared) */
+.announce{background:var(--c-black);color:var(--c-bone);font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:9px 16px}
+.announce b{color:var(--c-precision);font-weight:400}
+.nav{position:sticky;top:0;z-index:200;background:rgba(248,246,240,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-mist);transition:box-shadow var(--dur-base) var(--ease-out)}
+.nav.scrolled{box-shadow:var(--sh-sm)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px)}
+.nav-logo{font-family:var(--font-ui);font-weight:800;font-size:15px;letter-spacing:.22em;text-transform:uppercase}
+.nav-logo sup{font-family:var(--font-mono);font-size:8px;color:var(--c-precision);vertical-align:super;margin-left:2px}
+.nav-links{display:flex;gap:clamp(16px,2.4vw,34px);list-style:none}
+.nav-links a{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);position:relative;transition:color var(--dur-fast) var(--ease-out);padding:4px 0}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--c-black);transition:width var(--dur-base) var(--ease-out)}
+.nav-links a:hover{color:var(--c-black)}.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:var(--sp-5)}
+.nav-icon{display:grid;place-items:center;color:var(--c-black);background:none;border:none;position:relative}
+.nav-icon .dot{position:absolute;top:-3px;right:-5px;background:var(--c-precision);color:var(--c-black);font-family:var(--font-mono);font-size:9px;min-width:15px;height:15px;border-radius:var(--r-full);display:grid;place-items:center;padding:0 3px}
+.nav-burger{display:none}
+/* ── SHOP DROPDOWN (CRO) ── */
+.nav-item-shop{position:relative}
+.nav-trigger{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);background:none;border:none;padding:4px 0;cursor:pointer;transition:color var(--dur-fast) var(--ease-out)}
+.nav-trigger svg{transition:transform var(--dur-base) var(--ease-out)}
+.nav-item-shop:hover .nav-trigger,.nav-item-shop:focus-within .nav-trigger,.nav-item-shop.open .nav-trigger{color:var(--c-black)}
+.nav-item-shop:hover .nav-trigger svg,.nav-item-shop:focus-within .nav-trigger svg,.nav-item-shop.open .nav-trigger svg{transform:rotate(180deg)}
+.shop-panel{position:absolute;top:calc(100% + 20px);left:0;width:min(540px,86vw);background:var(--c-bone);border:1px solid var(--c-mist);border-radius:var(--r-md);box-shadow:var(--sh-lg);padding:var(--sp-6);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(8px);transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out);z-index:210}
+.shop-panel::before{content:'';position:absolute;top:-20px;left:0;right:0;height:20px}
+.nav-item-shop:hover .shop-panel,.nav-item-shop:focus-within .shop-panel,.nav-item-shop.open .shop-panel{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+.sp-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:var(--sp-6)}
+.sp-eyebrow{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--c-slate);margin-bottom:var(--sp-3);display:flex;align-items:center;gap:8px}
+.sp-eyebrow .live{width:6px;height:6px;border-radius:50%;background:var(--c-precision);display:inline-block;flex-shrink:0}
+.sp-prod{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px;border-radius:var(--r-sm);transition:background var(--dur-fast) var(--ease-out)}
+.sp-prod:hover{background:var(--c-fog)}
+.sp-prod .nm{display:flex;flex-direction:column}
+.sp-prod .n{font-family:var(--font-display);font-size:18px;line-height:1.05}
+.sp-prod .m{font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-slate);margin-top:3px}
+.sp-prod .p{font-family:var(--font-mono);font-size:12px;color:var(--c-black);white-space:nowrap}
+.sp-prod.out{opacity:.5}
+.sp-prod.out .p{text-decoration:line-through}
+.sp-col-div{border-left:1px solid var(--c-fog);padding-left:var(--sp-6)}
+.sp-div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-sm);transition:background var(--dur-fast) var(--ease-out)}
+.sp-div:hover{background:var(--c-fog)}
+.sp-div .dn{font-family:var(--font-ui);font-weight:600;font-size:13px}
+.sp-div .st{font-family:var(--font-mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate)}
+.sp-div .st.on{color:var(--c-precision)}
+.sp-foot{display:flex;justify-content:space-between;align-items:center;margin-top:var(--sp-5);padding-top:var(--sp-5);border-top:1px solid var(--c-mist);font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-black)}
+.sp-foot svg{transition:transform var(--dur-base) var(--ease-out)}
+.sp-foot:hover svg{transform:translateX(4px)}
+/* ── NAV CTA (CRO) ── */
+.nav-cta{font-family:var(--font-ui);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;background:var(--c-precision);color:var(--c-black);border:1.5px solid var(--c-precision);border-radius:var(--r-sm);display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:all var(--dur-base) var(--ease-out)}
+.nav-cta:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,191,223,.3)}
+.nav-cta svg{transition:transform var(--dur-base) var(--ease-out)}
+.nav-cta:hover svg{transform:translateX(3px)}
+@media(max-width:1040px){.nav-icon[data-opt]{display:none}}
+@media(max-width:880px){.nav-links,.nav-cta{display:none}.nav-burger{display:grid;place-items:center}}
+
+/* buttons */
+.btn{font-family:var(--font-ui);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:15px 30px;border-radius:var(--r-sm);border:1.5px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:all var(--dur-base) var(--ease-out)}
+.btn-primary{background:var(--c-black);color:var(--c-bone);border-color:var(--c-black)}
+.btn-primary:hover{background:var(--c-charcoal);transform:translateY(-1px);box-shadow:var(--sh-md)}
+.btn-secondary{background:transparent;color:var(--c-black);border-color:var(--c-black)}
+.btn-secondary:hover{background:var(--c-black);color:var(--c-bone)}
+.btn-precision{background:var(--c-precision);color:var(--c-black);border-color:var(--c-precision)}
+.btn-precision:hover{filter:brightness(1.06)}
+
+/* BREADCRUMB */
+.crumb{padding:var(--sp-6) 0 0}
+.crumb ol{list-style:none;display:flex;gap:8px;flex-wrap:wrap;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--c-slate)}
+.crumb a:hover{color:var(--c-black)}.crumb .sep{opacity:.5}
+
+/* PDP LAYOUT */
+.pdp{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,4.5vw,72px);padding:var(--sp-8) 0 clamp(56px,8vw,96px)}
+@media(max-width:920px){.pdp{grid-template-columns:1fr;gap:var(--sp-10)}}
+
+/* GALLERY */
+.gallery{position:sticky;top:84px;align-self:start}
+@media(max-width:920px){.gallery{position:static}}
+.gal-main{position:relative;aspect-ratio:4/5;background:var(--c-white);border:1px solid var(--c-mist);border-radius:var(--r-md);overflow:hidden;display:grid;place-items:center;box-shadow:var(--sh-sm)}
+.gal-main::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(0,191,223,.06),transparent 60%);pointer-events:none}
+.gal-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(12,12,12,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(12,12,12,.025) 1px,transparent 1px);background-size:48px 48px}
+.gal-tag{position:absolute;top:16px;left:16px;font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:var(--c-black);color:var(--c-bone);padding:5px 11px;border-radius:var(--r-full);z-index:4}
+.gal-fig{position:absolute;font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;color:var(--c-slate);z-index:4}
+.gal-fig.f1{top:18px;right:18px;text-align:right}.gal-fig.f2{bottom:18px;left:18px}.gal-fig.f3{bottom:18px;right:18px;text-align:right}
+.gal-stage{position:absolute;inset:0;z-index:2;transition:transform var(--dur-slow) var(--ease-in-out)}
+.gal-main:hover .gal-stage{transform:scale(1.04)}
+.gal-thumbs{display:flex;gap:var(--sp-3);margin-top:var(--sp-3)}
+.thumb{flex:1;aspect-ratio:1;background:var(--c-white);border:1px solid var(--c-mist);border-radius:var(--r-sm);display:grid;place-items:center;overflow:hidden;transition:border-color var(--dur-fast) var(--ease-out);position:relative}
+.thumb svg{width:54%}
+.thumb.active{border-color:var(--c-black);border-width:1.5px}
+.thumb .tl{position:absolute;bottom:5px;left:6px;font-family:var(--font-mono);font-size:8px;color:var(--c-slate);letter-spacing:.06em;z-index:3}
+
+/* ── MEDIA PLACEHOLDER · design-phase photography slots ── */
+.media-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-3);text-align:center;padding:clamp(16px,5%,32px);z-index:2;pointer-events:none}
+.media-ph .ph-icon{width:42px;height:42px;color:var(--c-slate);opacity:.42;margin-bottom:var(--sp-1);transition:transform var(--dur-base) var(--ease-out)}
+.media-ph .ph-eyebrow{font-family:var(--font-mono);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--c-slate)}
+.media-ph .ph-title{font-family:var(--font-display);font-weight:400;font-size:clamp(19px,2.6vw,30px);line-height:1.05;color:var(--c-black)}
+.media-ph .ph-detail{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-steel)}
+.media-ph .ph-cap{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-slate);display:inline-flex;align-items:center;gap:9px;margin-top:2px}
+.media-ph .ph-cap::before,.media-ph .ph-cap::after{content:'';width:16px;height:1px;background:var(--c-mist)}
+.media-ph.compact{gap:6px;padding:8px}
+.media-ph.compact .ph-icon{width:28px;height:28px;margin:0;opacity:.5}
+
+/* BUY BOX */
+.buy-cat{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-precision);margin-bottom:var(--sp-3)}
+.buy-name{font-family:var(--font-display);font-weight:400;font-size:clamp(38px,5.4vw,60px);line-height:.98}
+.buy-name small{display:block;font-family:var(--font-display);font-size:.42em;color:var(--c-steel);letter-spacing:.04em;margin-top:6px}
+.buy-rate{display:flex;align-items:center;gap:10px;margin-top:var(--sp-4)}
+.stars{color:var(--c-lab);font-size:14px;letter-spacing:2px}
+.buy-rate a{font-family:var(--font-mono);font-size:11px;color:var(--c-slate);text-decoration:underline;text-underline-offset:2px}
+.buy-price{display:flex;align-items:baseline;gap:12px;margin-top:var(--sp-6)}
+.buy-price .now{font-family:var(--font-mono);font-weight:500;font-size:26px}
+.buy-price .cur{font-family:var(--font-mono);font-size:12px;color:var(--c-slate)}
+.buy-edition{margin-top:var(--sp-5);padding:var(--sp-4) var(--sp-5);background:var(--c-fog);border-radius:var(--r-md);border-left:3px solid var(--c-precision);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--c-steel);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.buy-edition b{color:var(--c-black);font-weight:500}
+.buy-stockbar{height:4px;background:var(--c-mist);border-radius:var(--r-full);overflow:hidden;margin-top:10px;width:100%}
+.buy-stockbar i{display:block;height:100%;width:62%;background:var(--c-precision)}
+.buy-desc{font-size:14.5px;color:var(--c-steel);line-height:1.75;margin-top:var(--sp-6);max-width:460px}
+
+/* selectors */
+.opt{margin-top:var(--sp-8)}
+.opt-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:var(--sp-3)}
+.opt-label{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-steel)}
+.opt-value{font-size:13px;color:var(--c-black);font-weight:600}
+.opt-help{font-family:var(--font-mono);font-size:10px;color:var(--c-slate);text-decoration:underline;text-underline-offset:2px}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.swatch{width:38px;height:38px;border-radius:var(--r-full);border:1.5px solid var(--c-mist);position:relative;transition:transform var(--dur-fast) var(--ease-out)}
+.swatch:hover{transform:scale(1.06)}
+.swatch.sel{border-color:var(--c-black)}
+.swatch.sel::after{content:'';position:absolute;inset:-5px;border:1px solid var(--c-black);border-radius:var(--r-full)}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{font-family:var(--font-ui);font-weight:600;font-size:12px;letter-spacing:.02em;padding:11px 16px;border:1.5px solid var(--c-mist);border-radius:var(--r-sm);background:var(--c-white);transition:all var(--dur-fast) var(--ease-out);text-align:center}
+.chip small{display:block;font-family:var(--font-mono);font-size:9px;color:var(--c-slate);letter-spacing:.04em;margin-top:2px;font-weight:400}
+.chip:hover{border-color:var(--c-steel)}
+.chip.sel{border-color:var(--c-black);background:var(--c-black);color:var(--c-bone)}
+.chip.sel small{color:var(--c-silver)}
+.chip.out{color:var(--c-silver);cursor:not-allowed;text-decoration:line-through;border-style:dashed}
+
+/* qty + cart row */
+.buy-action{display:flex;gap:var(--sp-3);margin-top:var(--sp-8);align-items:stretch}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--c-mist);border-radius:var(--r-sm);overflow:hidden}
+.qty button{width:44px;background:none;border:none;font-size:18px;color:var(--c-steel);transition:background var(--dur-fast) var(--ease-out)}
+.qty button:hover{background:var(--c-fog);color:var(--c-black)}
+.qty span{width:42px;text-align:center;font-family:var(--font-mono);font-size:15px;line-height:44px;border-inline:1px solid var(--c-fog)}
+.add-cart{flex:1;font-size:13px}
+.add-cart .chk{display:inline-grid;place-items:center;width:0;overflow:hidden;transition:width var(--dur-base) var(--ease-spring)}
+.add-cart.done{background:var(--c-precision);border-color:var(--c-precision);color:var(--c-black)}
+.add-cart.done .chk{width:18px}
+.buy-pay{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--c-slate);text-align:center;margin-top:var(--sp-4)}
+
+/* trust row */
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-2);margin-top:var(--sp-8);padding-top:var(--sp-6);border-top:1px solid var(--c-mist)}
+.trust-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:0 6px}
+.trust-item svg{color:var(--c-black)}
+.trust-item span{font-size:11px;color:var(--c-steel);line-height:1.45;font-weight:600}
+
+/* accordions */
+.acc{margin-top:var(--sp-8);border-top:1px solid var(--c-mist)}
+.acc-item{border-bottom:1px solid var(--c-mist)}
+.acc-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:var(--sp-5) 0;background:none;border:none;text-align:left;font-family:var(--font-ui);font-weight:700;font-size:13px;letter-spacing:.04em;color:var(--c-black)}
+.acc-q svg{transition:transform var(--dur-base) var(--ease-out);flex-shrink:0}
+.acc-item.open .acc-q svg{transform:rotate(45deg)}
+.acc-a{max-height:0;overflow:hidden;transition:max-height var(--dur-slow) var(--ease-out)}
+.acc-a-inner{padding:0 0 var(--sp-5);font-size:13.5px;color:var(--c-steel);line-height:1.75}
+.acc-a-inner .mono-list{list-style:none;margin-top:var(--sp-3);display:grid;gap:6px}
+.acc-a-inner .mono-list li{font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:var(--c-slate);display:flex;justify-content:space-between;border-bottom:1px dashed var(--c-fog);padding-bottom:5px}
+.acc-a-inner .mono-list li b{color:var(--c-black);font-weight:500}
+
+/* SPEC STRIP */
+.specstrip{background:var(--c-black);color:var(--c-bone);overflow:hidden;position:relative}
+.specstrip .ss-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(248,246,240,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(248,246,240,.03) 1px,transparent 1px);background-size:64px 64px}
+.ss-inner{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-8);padding:clamp(40px,6vw,64px) 0}
+.ss-item .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-silver);margin-bottom:10px}
+.ss-item .v{font-family:var(--font-display);font-size:30px;line-height:1.05}
+.ss-item .d{font-size:12px;color:var(--c-mist);margin-top:8px;line-height:1.6}
+@media(max-width:760px){.ss-inner{grid-template-columns:1fr 1fr;gap:var(--sp-6)}}
+
+/* CONSTRUCTION */
+.sec{padding:clamp(64px,9vw,120px) 0}
+.sec-head{display:grid;grid-template-columns:120px 1fr;gap:var(--sp-8);margin-bottom:clamp(36px,5vw,64px)}
+.sec-num{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);border-top:2px solid var(--c-black);padding-top:10px;align-self:start}
+.sec-title{font-family:var(--font-display);font-weight:400;font-size:clamp(32px,5vw,56px);line-height:.98}
+.sec-intro{font-size:clamp(14px,1.4vw,16px);color:var(--c-steel);line-height:1.7;max-width:580px;margin-top:var(--sp-5)}
+@media(max-width:680px){.sec-head{grid-template-columns:1fr;gap:var(--sp-4)}}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-5)}
+@media(max-width:820px){.feat{grid-template-columns:1fr}}
+.feat-card{background:var(--c-white);border:1px solid var(--c-fog);border-radius:var(--r-md);padding:var(--sp-8);transition:box-shadow var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out)}
+.feat-card:hover{box-shadow:var(--sh-md);transform:translateY(-3px)}
+.feat-card .fnum{font-family:var(--font-mono);font-size:10px;color:var(--c-precision);margin-bottom:var(--sp-5)}
+.feat-card h3{font-family:var(--font-display);font-size:24px;line-height:1.1;margin-bottom:var(--sp-3)}
+.feat-card p{font-size:13.5px;color:var(--c-steel);line-height:1.7}
+.feat-card .fspec{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--c-slate);margin-top:var(--sp-4);padding-top:var(--sp-3);border-top:1px solid var(--c-fog)}
+
+/* REVIEWS */
+.reviews{background:var(--c-white);border-top:1px solid var(--c-fog);border-bottom:1px solid var(--c-fog)}
+.rev-top{display:grid;grid-template-columns:300px 1fr;gap:clamp(32px,5vw,64px);margin-bottom:var(--sp-12);align-items:center}
+@media(max-width:760px){.rev-top{grid-template-columns:1fr;gap:var(--sp-8)}}
+.rev-score{text-align:center;padding:var(--sp-8);border:1px solid var(--c-mist);border-radius:var(--r-md)}
+.rev-score .big{font-family:var(--font-display);font-size:64px;line-height:1}
+.rev-score .stars{font-size:18px;display:block;margin:8px 0}
+.rev-score .cnt{font-family:var(--font-mono);font-size:11px;color:var(--c-slate)}
+.rev-bars{display:flex;flex-direction:column;gap:10px}
+.rev-bar{display:grid;grid-template-columns:42px 1fr 36px;gap:12px;align-items:center;font-family:var(--font-mono);font-size:11px;color:var(--c-slate)}
+.rev-bar .track{height:5px;background:var(--c-fog);border-radius:var(--r-full);overflow:hidden}
+.rev-bar .track i{display:block;height:100%;background:var(--c-black)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-5)}
+@media(max-width:820px){.rev-grid{grid-template-columns:1fr}}
+.rev-card{border:1px solid var(--c-fog);border-radius:var(--r-md);padding:var(--sp-6);background:var(--c-bone)}
+.rev-card .rc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-3)}
+.rev-card .stars{font-size:12px}
+.rev-card .vf{font-family:var(--font-mono);font-size:9px;letter-spacing:.06em;color:var(--c-wellness);text-transform:uppercase}
+.rev-card .vf::before{content:'✓ '}
+.rev-card h4{font-family:var(--font-ui);font-weight:700;font-size:13px;margin-bottom:6px}
+.rev-card p{font-size:13px;color:var(--c-steel);line-height:1.65;margin-bottom:var(--sp-4)}
+.rev-card .who{font-family:var(--font-mono);font-size:10px;color:var(--c-slate);letter-spacing:.04em}
+
+/* COMPLETE THE SET */
+.set{padding:clamp(64px,9vw,110px) 0}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-5)}
+@media(max-width:1000px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.products{grid-template-columns:1fr}}
+.pcard{background:var(--c-white);border:1px solid var(--c-fog);border-radius:var(--r-md);overflow:hidden;transition:box-shadow var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out)}
+.pcard:hover{box-shadow:var(--sh-md);transform:translateY(-3px)}
+.pcard-img{aspect-ratio:3/4;position:relative;display:grid;place-items:center;background:var(--c-fog);overflow:hidden}
+.pcard:hover .pcard-img .media-ph .ph-icon{transform:translateY(-3px)}
+.pcard-body{padding:var(--sp-5)}
+.pcard-cat{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-precision);margin-bottom:6px}
+.pcard-name{font-family:var(--font-display);font-size:20px;line-height:1.15}
+.pcard-height{font-size:12px;color:var(--c-steel);margin:2px 0 var(--sp-3)}
+.pcard-price{font-family:var(--font-mono);font-weight:500;font-size:14px}
+
+/* FOOTER */
+.foot{background:var(--c-ink);color:var(--c-bone);padding:clamp(56px,8vw,88px) 0 var(--sp-10)}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--sp-8);padding-bottom:var(--sp-12);border-bottom:1px solid var(--c-charcoal)}
+.foot-brand .fb-logo{font-family:var(--font-ui);font-weight:800;font-size:18px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:var(--sp-4)}
+.foot-brand p{font-size:13px;color:var(--c-silver);line-height:1.7;max-width:300px}
+.foot-col h4{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-silver);margin-bottom:var(--sp-5)}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:var(--sp-3)}
+.foot-col a{font-size:13px;color:var(--c-mist);transition:color var(--dur-fast) var(--ease-out)}.foot-col a:hover{color:var(--c-bone)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-4);padding-top:var(--sp-8);flex-wrap:wrap}
+.foot-bottom p{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;color:var(--c-silver)}
+@media(max-width:760px){.foot-top{grid-template-columns:1fr 1fr}.foot-brand{grid-column:1/-1}}
+
+/* STICKY MOBILE ATC */
+.sticky-atc{position:fixed;left:0;right:0;bottom:0;z-index:180;background:rgba(248,246,240,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--c-mist);padding:12px clamp(16px,5vw,24px);display:flex;align-items:center;gap:14px;transform:translateY(110%);transition:transform var(--dur-slow) var(--ease-out)}
+.sticky-atc.show{transform:none}
+.sticky-atc .sa-info{flex:1;min-width:0}
+.sticky-atc .sa-name{font-family:var(--font-display);font-size:18px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sticky-atc .sa-price{font-family:var(--font-mono);font-size:12px;color:var(--c-steel);margin-top:3px}
+.sticky-atc .btn{padding:13px 22px}
+@media(min-width:921px){.sticky-atc{display:none}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* SIZE GUIDE MODAL */
+.modal{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity var(--dur-base) var(--ease-out),visibility var(--dur-base)}
+.modal.open{opacity:1;visibility:visible}
+.modal-backdrop{position:absolute;inset:0;background:rgba(12,12,12,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal-card{position:relative;background:var(--c-bone);border:1px solid var(--c-mist);border-radius:var(--r-md);box-shadow:var(--sh-xl);width:min(560px,100%);max-height:88vh;overflow:auto;transform:translateY(16px) scale(.98);transition:transform var(--dur-slow) var(--ease-out)}
+.modal.open .modal-card{transform:none}
+.modal-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(12,12,12,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(12,12,12,.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;mask-image:radial-gradient(ellipse 90% 60% at 50% 0,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0,#000 30%,transparent 75%)}
+.modal-head{position:relative;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:clamp(24px,4vw,36px) clamp(24px,4vw,36px) var(--sp-5)}
+.modal-head .eyebrow{margin-bottom:10px}
+.modal-head h3{font-family:var(--font-display);font-weight:400;font-size:clamp(28px,4vw,38px);line-height:1}
+.modal-close{flex-shrink:0;width:36px;height:36px;display:grid;place-items:center;background:none;border:1px solid var(--c-mist);border-radius:var(--r-full);color:var(--c-steel);transition:all var(--dur-fast) var(--ease-out)}
+.modal-close:hover{border-color:var(--c-black);color:var(--c-black)}
+.modal-body{position:relative;padding:0 clamp(24px,4vw,36px) clamp(24px,4vw,36px)}
+.size-table{width:100%;border-collapse:collapse;border:1px solid var(--c-mist);border-radius:var(--r-md);overflow:hidden}
+.size-table thead th{background:var(--c-black);color:var(--c-bone);font-family:var(--font-ui);font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:12px 10px;text-align:left}
+.size-table td{font-family:var(--font-mono);font-size:12px;color:var(--c-steel);padding:13px 10px;border-bottom:1px solid var(--c-fog);transition:background var(--dur-fast) var(--ease-out)}
+.size-table tbody tr{cursor:pointer}
+.size-table tbody tr:last-child td{border-bottom:none}
+.size-table tbody tr:hover td{background:var(--c-fog)}
+.size-table tbody tr.sel td{background:rgba(0,191,223,.08)}
+.size-table td.sz-name{font-family:var(--font-ui);font-weight:700;font-size:13px;color:var(--c-black)}
+.size-table td.sz-name span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--c-precision);margin-right:8px;opacity:0;transition:opacity var(--dur-fast)}
+.size-table tbody tr.sel td.sz-name span{opacity:1}
+.size-measure{display:flex;gap:14px;align-items:flex-start;margin-top:var(--sp-6);padding:var(--sp-5);background:var(--c-fog);border-radius:var(--r-md);border-left:3px solid var(--c-precision)}
+.size-measure svg{flex-shrink:0;color:var(--c-black);margin-top:1px}
+.size-measure p{font-size:12.5px;color:var(--c-steel);line-height:1.6}
+.size-measure p b{color:var(--c-black);font-weight:600}
+.size-hint{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:var(--c-slate);text-transform:uppercase;margin-top:var(--sp-5);text-align:center}
+
+/* TOAST + mobile menu */
+.toast{position:fixed;top:76px;right:24px;z-index:500;display:inline-flex;align-items:center;gap:12px;background:var(--c-black);color:var(--c-bone);padding:14px 22px;border-radius:var(--r-md);font-size:13px;box-shadow:var(--sh-lg);transform:translateY(-16px);opacity:0;pointer-events:none;transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out)}
+.toast.show{opacity:1;transform:none}.toast .tdot{width:8px;height:8px;border-radius:50%;background:var(--c-precision)}
+.mmenu{position:fixed;inset:0;z-index:400;background:var(--c-bone);transform:translateX(100%);transition:transform var(--dur-slow) var(--ease-out);display:flex;flex-direction:column;padding:24px}
+.mmenu.open{transform:none}
+.mmenu-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-6)}
+.mmenu-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-slate);display:flex;align-items:center;gap:8px;margin-bottom:var(--sp-6)}
+.mmenu-eyebrow .live{width:6px;height:6px;border-radius:50%;background:var(--c-precision)}
+.mmenu-nav{display:flex;flex-direction:column}
+.mmenu-nav a{font-family:var(--font-display);font-size:34px;padding:14px 0;border-bottom:1px solid var(--c-fog)}
+.mmenu-cta{margin-top:var(--sp-8);width:100%;justify-content:center;padding:16px 28px;font-size:13px}
+.mmenu-trust{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5);margin-top:var(--sp-8)}
+.mmenu-trust span{font-family:var(--font-mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);display:inline-flex;align-items:center;gap:7px}
+.mmenu-trust span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--c-precision)}
+</style>
+</head>
+<body>
+
+<div class="announce">Run 001 — Precision Series · Now Live · <b>76 / 200 pairs remain</b> · Free express shipping over AUD $120</div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="homepage.html" class="nav-logo">DuoStep<sup>AU</sup></a>
+    <nav class="nav-primary" aria-label="Primary">
+      <ul class="nav-links">
+        <li class="nav-item-shop">
+          <button class="nav-trigger" id="shopTrigger" aria-expanded="false" aria-haspopup="true" aria-controls="shopPanel">Shop
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="shop-panel" id="shopPanel" role="menu" aria-label="Shop">
+            <div class="sp-grid">
+              <div class="sp-col">
+                <div class="sp-eyebrow"><span class="live"></span>Run 001 · Live · 76 pairs remain</div>
+                <a class="sp-prod" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Low Cut · below ankle</span></span><span class="p">AUD $89</span></a>
+                <a class="sp-prod" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Ankle · at ankle bone</span></span><span class="p">AUD $92</span></a>
+                <a class="sp-prod" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Mini Crew · mid-shin</span></span><span class="p">AUD $95</span></a>
+                <a class="sp-prod out" href="product.html" role="menuitem"><span class="nm"><span class="n">Run-Series I</span><span class="m">Crew · this run complete</span></span><span class="p">AUD $98</span></a>
+              </div>
+              <div class="sp-col sp-col-div">
+                <div class="sp-eyebrow">The House</div>
+                <a class="sp-div" href="homepage.html#divisions" role="menuitem"><span class="dn">Precision</span><span class="st on">● Live</span></a>
+                <a class="sp-div" href="homepage.html#signup" role="menuitem"><span class="dn">Odyssey</span><span class="st">Soon</span></a>
+                <a class="sp-div" href="homepage.html#signup" role="menuitem"><span class="dn">Wellness</span><span class="st">Soon</span></a>
+                <a class="sp-div" href="homepage.html#signup" role="menuitem"><span class="dn">Custom Lab</span><span class="st">Collabs</span></a>
+              </div>
+            </div>
+            <a class="sp-foot" href="homepage.html#drop">Shop all Precision <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+        </li>
+        <li><a href="homepage.html#engineered">Engineering</a></li>
+        <li><a href="homepage.html#divisions">The House</a></li>
+        <li><a href="homepage.html#story">About</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="nav-icon" data-opt aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <button class="nav-icon" data-opt aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+      <button class="nav-icon" aria-label="Cart" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="dot" id="cartDot">0</span></button>
+      <a href="homepage.html#drop" class="nav-cta">Shop the Drop <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg></a>
+      <button class="nav-burger nav-icon" aria-label="Menu" id="burger"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="mmenu" id="mmenu">
+  <div class="mmenu-top"><span class="nav-logo">DuoStep<sup>AU</sup></span>
+    <button class="nav-icon" id="mclose" aria-label="Close menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+  <div class="mmenu-eyebrow"><span class="live"></span>Run 001 · Live · 76 pairs remain</div>
+  <nav class="mmenu-nav" aria-label="Mobile">
+    <a href="homepage.html#drop">Shop the Drop</a>
+    <a href="homepage.html#engineered">Engineering</a>
+    <a href="homepage.html#divisions">The House</a>
+    <a href="homepage.html#story">About</a>
+  </nav>
+  <a href="homepage.html#drop" class="btn btn-precision mmenu-cta">Shop the Precision Drop <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  <div class="mmenu-trust"><span>Free express over $120</span><span>30-day returns</span><span>Australian made</span></div>
+</div>
+
+<div class="wrap">
+  <!-- BREADCRUMB -->
+  <nav class="crumb" aria-label="Breadcrumb"><ol>
+    <li><a href="homepage.html">Home</a></li><li class="sep">/</li>
+    <li><a href="homepage.html#drop">Precision</a></li><li class="sep">/</li>
+    <li>Run-Series I</li>
+  </ol></nav>
+
+  <!-- PDP -->
+  <div class="pdp">
+    <!-- GALLERY -->
+    <div class="gallery">
+      <div class="gal-main">
+        <div class="gal-grid"></div>
+        <span class="gal-tag" id="galTag">Run 001 / 200</span>
+        <span class="gal-fig f1">PRECISION-SERIES<br>RUN-001</span>
+        <span class="gal-fig f2" id="galFig">FIG. 01 — PROFILE</span>
+        <span class="gal-fig f3">AU-MADE</span>
+        <div class="gal-stage" id="galStage"></div>
+      </div>
+      <div class="gal-thumbs" id="thumbs">
+        <button class="thumb active" data-view="profile" aria-label="Profile view"><span class="tl">01</span></button>
+        <button class="thumb" data-view="construction" aria-label="Construction view"><span class="tl">02</span></button>
+        <button class="thumb" data-view="detail" aria-label="Cuff detail"><span class="tl">03</span></button>
+        <button class="thumb" data-view="pair" aria-label="Pair"><span class="tl">04</span></button>
+      </div>
+    </div>
+
+    <!-- BUY BOX -->
+    <div class="buy">
+      <div class="buy-cat">Precision · Run-Series I</div>
+      <h1 class="buy-name">Run-Series I<small>The first Precision drop. Engineered for the long run.</small></h1>
+      <div class="buy-rate"><span class="stars">★★★★★</span><a href="#reviews">4.9 · 117 reviews</a></div>
+
+      <div class="buy-price"><span class="now" id="priceNow">AUD $89.00</span><span class="cur">/ pair · incl. GST</span></div>
+
+      <div class="buy-edition">
+        <span>Run 001 — limited to <b>200 pairs</b></span>
+        <span><b id="leftCount">76</b> pairs remain</span>
+      </div>
+      <div class="buy-stockbar"><i></i></div>
+
+      <p class="buy-desc">Recycled nylon warp with an 18.5-micron Merino inlay. Compression-mapped arch, seamless hand-linked toe. Built for 42K, tested well past it.</p>
+
+      <!-- COLOUR -->
+      <div class="opt">
+        <div class="opt-head"><span class="opt-label">Colour</span><span class="opt-value" id="colVal">Carbon Black</span></div>
+        <div class="swatches" id="swatches">
+          <button class="swatch sel" style="background:#0C0C0C" data-col="Carbon Black" aria-label="Carbon Black"></button>
+          <button class="swatch" style="background:#F8F6F0" data-col="Bone" aria-label="Bone"></button>
+          <button class="swatch" style="background:#00BFDF" data-col="Electric Cyan" aria-label="Electric Cyan"></button>
+          <button class="swatch" style="background:#8A7155" data-col="Earth Bronze" aria-label="Earth Bronze"></button>
+          <button class="swatch" style="background:#555555" data-col="Steel" aria-label="Steel"></button>
+          <button class="swatch" style="background:#7FA885" data-col="Sage" aria-label="Sage"></button>
+        </div>
+      </div>
+
+      <!-- HEIGHT -->
+      <div class="opt">
+        <div class="opt-head"><span class="opt-label">Height</span><span class="opt-value" id="htVal">Low Cut</span></div>
+        <div class="chips" id="heights">
+          <button class="chip sel" data-ht="Low Cut" data-price="89">Low Cut<small>below ankle</small></button>
+          <button class="chip" data-ht="Ankle" data-price="92">Ankle<small>at ankle bone</small></button>
+          <button class="chip" data-ht="Mini Crew" data-price="95">Mini Crew<small>mid-shin</small></button>
+          <button class="chip out" data-ht="Crew" data-price="98" disabled>Crew<small>run complete</small></button>
+        </div>
+      </div>
+
+      <!-- SIZE -->
+      <div class="opt">
+        <div class="opt-head"><span class="opt-label">Size</span><a href="#" class="opt-help" id="sizeGuide">Size guide</a></div>
+        <div class="chips" id="sizes">
+          <button class="chip" data-sz="S">S<small>EU 36–38</small></button>
+          <button class="chip sel" data-sz="M">M<small>EU 39–41</small></button>
+          <button class="chip" data-sz="L">L<small>EU 42–44</small></button>
+          <button class="chip" data-sz="XL">XL<small>EU 45–47</small></button>
+        </div>
+      </div>
+
+      <!-- ACTION -->
+      <div class="buy-action">
+        <div class="qty"><button id="qDown" aria-label="Decrease quantity">−</button><span id="qVal">1</span><button id="qUp" aria-label="Increase quantity">+</button></div>
+        <button class="btn btn-primary add-cart" id="addBtn">
+          <span class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <span id="addLabel">Add to Cart — $89</span>
+        </button>
+      </div>
+      <p class="buy-pay">Or 4 interest-free payments of $22.25 · Ships in 1–2 business days from AU</p>
+
+      <!-- TRUST -->
+      <div class="trust">
+        <div class="trust-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span>Free express<br>over $120</span></div>
+        <div class="trust-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg><span>30-day<br>easy returns</span></div>
+        <div class="trust-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>Secure<br>checkout</span></div>
+      </div>
+
+      <!-- ACCORDIONS -->
+      <div class="acc" id="acc">
+        <div class="acc-item open">
+          <button class="acc-q">Specifications <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="acc-a"><div class="acc-a-inner">
+            Every Run-Series I pair is knitted on a 200-needle cylinder and finished by hand.
+            <ul class="mono-list">
+              <li><span>FIBRE</span><b>Merino 18.5μ + Recycled Nylon</b></li>
+              <li><span>ARCH</span><b>Graduated 18–22 mmHg</b></li>
+              <li><span>TOE</span><b>Hand-linked seamless</b></li>
+              <li><span>GAUGE</span><b>200-needle</b></li>
+              <li><span>ORIGIN</span><b>Made in Australia</b></li>
+              <li><span>SKU</span><b>RUN-001-PRC-LC</b></li>
+            </ul>
+          </div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-q">Materials &amp; care <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="acc-a"><div class="acc-a-inner">A 62% recycled-nylon warp gives structure and abrasion resistance; the Merino inlay regulates temperature and resists odour without treatment chemicals. Machine wash cold, inside out. Dry flat. No bleach, no tumble dry — the construction holds when you let it.</div></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-q">Shipping &amp; returns <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+          <div class="acc-a"><div class="acc-a-inner">Dispatched within 1–2 business days from our Australian workshop. Free express shipping on orders over AUD $120. 30-day returns on unworn pairs in original packaging — straightforward, no friction.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPEC STRIP -->
+<section class="specstrip">
+  <div class="ss-grid"></div>
+  <div class="wrap">
+    <div class="ss-inner">
+      <div class="ss-item reveal"><div class="k">Fibre</div><div class="v">18.5μ</div><div class="d">Merino inlay — fine enough to kill the itch, technical enough to regulate.</div></div>
+      <div class="ss-item reveal"><div class="k">Arch</div><div class="v">18–22 mmHg</div><div class="d">Graduated compression mapped to the midfoot. Support, measured.</div></div>
+      <div class="ss-item reveal"><div class="k">Toe</div><div class="v">Seamless</div><div class="d">Hand-linked closure. The ridge that blisters, removed.</div></div>
+      <div class="ss-item reveal"><div class="k">Origin</div><div class="v">In-house</div><div class="d">Designed, knitted and finished in Australia. Total quality control.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSTRUCTION -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">01 / Construction</span>
+      <div>
+        <h2 class="sec-title">Built for the<br>kilometres.</h2>
+        <p class="sec-intro">Comfort and support are engineered outcomes, not soft claims. Every zone of Run-Series I is constructed for a job — and tested until it holds.</p>
+      </div>
+    </div>
+    <div class="feat">
+      <div class="feat-card reveal"><div class="fnum">01</div><h3>Compression-mapped arch</h3><p>A graduated arch band wraps the midfoot for support that's measured, not padded — it holds its place from the first kilometre to the last.</p><div class="fspec">ARCH-MAP · 18–22 mmHg</div></div>
+      <div class="feat-card reveal"><div class="fnum">02</div><h3>Seamless hand-linked toe</h3><p>The toe closure is linked by hand to remove the ridge that blisters over distance. Cushioning placed where impact lands, stripped where it isn't.</p><div class="fspec">HAND-LINKED · ZONED-CUSHION</div></div>
+      <div class="feat-card reveal"><div class="fnum">03</div><h3>Merino on recycled nylon</h3><p>An 18.5-micron Merino inlay on a recycled nylon warp — natural temperature regulation and odour resistance, built to outlast the distance.</p><div class="fspec">MERINO-18.5μ · 62% RECYCLED</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews sec" id="reviews">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">02 / Verified</span>
+      <div><h2 class="sec-title">What runners say.</h2><p class="sec-intro">117 verified pairs in the wild. Reviews collected from confirmed orders only.</p></div>
+    </div>
+    <div class="rev-top reveal">
+      <div class="rev-score">
+        <div class="big">4.9</div>
+        <span class="stars">★★★★★</span>
+        <div class="cnt">Based on 117 reviews</div>
+      </div>
+      <div class="rev-bars">
+        <div class="rev-bar"><span>5 ★</span><span class="track"><i style="width:91%"></i></span><span>106</span></div>
+        <div class="rev-bar"><span>4 ★</span><span class="track"><i style="width:7%"></i></span><span>8</span></div>
+        <div class="rev-bar"><span>3 ★</span><span class="track"><i style="width:2%"></i></span><span>3</span></div>
+        <div class="rev-bar"><span>2 ★</span><span class="track"><i style="width:0%"></i></span><span>0</span></div>
+        <div class="rev-bar"><span>1 ★</span><span class="track"><i style="width:0%"></i></span><span>0</span></div>
+      </div>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card reveal"><div class="rc-top"><span class="stars">★★★★★</span><span class="vf">Verified</span></div><h4>Holds through a marathon</h4><p>Ran the Gold Coast full in these. Zero blisters, zero slip. The arch support is real — you feel it at 35K when it matters.</p><div class="who">— Daniel R. · Low Cut · Carbon Black</div></div>
+      <div class="rev-card reveal"><div class="rc-top"><span class="stars">★★★★★</span><span class="vf">Verified</span></div><h4>Finally, no itch</h4><p>I can't normally wear Merino — these are the exception. Fine enough that I forget they're wool. Worth every dollar.</p><div class="who">— Priya M. · Ankle · Bone</div></div>
+      <div class="rev-card reveal"><div class="rc-top"><span class="stars">★★★★☆</span><span class="vf">Verified</span></div><h4>Best sock I own</h4><p>Bought one pair to test, came back for three. The toe seam genuinely disappears. Only wish the Crew height was back in stock.</p><div class="who">— Tom K. · Mini Crew · Electric Cyan</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLETE THE SET -->
+<section class="set">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-num">03 / Run 001</span>
+      <div><h2 class="sec-title">Complete the run.</h2><p class="sec-intro">One sock, four heights. Build the set before the run is complete.</p></div>
+    </div>
+    <div class="products" id="related"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand"><div class="fb-logo">DuoStep</div><p>Luxury athletic socks, designed and manufactured in-house in Australia. Released in finite runs.</p></div>
+      <div class="foot-col"><h4>Shop</h4><ul><li><a href="homepage.html#drop">The Precision Drop</a></li><li><a href="product.html">Run-Series I</a></li><li><a href="#">Size Guide</a></li><li><a href="#">Gift Cards</a></li></ul></div>
+      <div class="foot-col"><h4>The House</h4><ul><li><a href="homepage.html#story">Made in Australia</a></li><li><a href="homepage.html#engineered">Engineering</a></li><li><a href="homepage.html#divisions">Divisions</a></li><li><a href="#">Custom Lab</a></li></ul></div>
+      <div class="foot-col"><h4>Support</h4><ul><li><a href="#">Shipping &amp; Returns</a></li><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li><li><a href="#">Care Guide</a></li></ul></div>
+    </div>
+    <div class="foot-bottom"><p>© 2026 DuoStep · Australian Made</p><p>PRECISION · ODYSSEY · WELLNESS · CUSTOM LAB</p></div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE ATC -->
+<div class="sticky-atc" id="stickyAtc">
+  <div class="sa-info"><div class="sa-name">Run-Series I</div><div class="sa-price" id="saPrice">Low Cut · M · AUD $89</div></div>
+  <button class="btn btn-primary" id="stickyAdd">Add — $89</button>
+</div>
+
+<!-- SIZE GUIDE MODAL -->
+<div class="modal" id="sizeModal" role="dialog" aria-modal="true" aria-labelledby="sizeModalTitle" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <div class="modal-grid"></div>
+    <div class="modal-head">
+      <div>
+        <p class="eyebrow tick">Run-Series I · Unisex</p>
+        <h3 id="sizeModalTitle">Find your fit.</h3>
+      </div>
+      <button class="modal-close" data-close aria-label="Close size guide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <table class="size-table">
+        <thead><tr><th>Size</th><th>EU</th><th>US M</th><th>US W</th><th>UK</th><th>Foot length</th></tr></thead>
+        <tbody id="sizeRows">
+          <tr data-sz="S"><td class="sz-name"><span></span>S</td><td>36–38</td><td>4–6</td><td>5.5–7.5</td><td>3.5–5</td><td>22–24 cm</td></tr>
+          <tr data-sz="M"><td class="sz-name"><span></span>M</td><td>39–41</td><td>6.5–8</td><td>8–9.5</td><td>5.5–7</td><td>24–26 cm</td></tr>
+          <tr data-sz="L"><td class="sz-name"><span></span>L</td><td>42–44</td><td>8.5–10.5</td><td>10–12</td><td>7.5–9.5</td><td>26–28 cm</td></tr>
+          <tr data-sz="XL"><td class="sz-name"><span></span>XL</td><td>45–47</td><td>11–13</td><td>—</td><td>10–12</td><td>28–30 cm</td></tr>
+        </tbody>
+      </table>
+      <div class="size-measure">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p><b>Between sizes?</b> Measure your foot heel-to-toe in the evening, when it's at its largest. The compression-mapped arch holds across the range — if you land on a boundary, take the smaller size for a closer fit.</p>
+      </div>
+      <p class="size-hint">Tap a row to select your size</p>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="tdot"></span><span id="toastMsg">Added to cart</span></div>
+
+<script>
+/* product photography placeholders (design phase — client supplies imagery) */
+const PH_ICON=`<svg class="ph-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+const VIEWS={
+  profile:{eb:'Product Photography',t:'Studio Profile',d:'Carbon Black · on bone'},
+  construction:{eb:'Annotated Photography',t:'Construction',d:'Cuff · Arch · Toe'},
+  detail:{eb:'Macro Detail',t:'Cuff Detail',d:'Ribbed compression'},
+  pair:{eb:'Product Photography',t:'The Pair',d:'Styled flatlay'}
+};
+function mediaPH(view){
+  const v=VIEWS[view]||VIEWS.profile;
+  return `<div class="media-ph">${PH_ICON}<span class="ph-eyebrow">${v.eb}</span><span class="ph-title">Run-Series I</span><span class="ph-detail">${v.t}</span><span class="ph-cap">${v.d}</span></div>`;
+}
+function mediaThumb(){return `<div class="media-ph compact">${PH_ICON}</div>`;}
+function mediaCard(){return `<div class="media-ph">${PH_ICON}<span class="ph-eyebrow">Product Photo</span><span class="ph-title">Run-Series I</span></div>`;}
+const galStage=document.getElementById('galStage');
+galStage.innerHTML=mediaPH('profile');
+const figMap={profile:'FIG. 01 — PROFILE',construction:'FIG. 02 — CONSTRUCTION',detail:'FIG. 03 — CUFF DETAIL',pair:'FIG. 04 — THE PAIR'};
+document.querySelectorAll('#thumbs .thumb').forEach(t=>{
+  t.innerHTML=mediaThumb()+t.innerHTML;
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('#thumbs .thumb').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    galStage.innerHTML=mediaPH(t.dataset.view);
+    document.getElementById('galFig').textContent=figMap[t.dataset.view];
+  });
+});
+
+/* related cards */
+const rel=[
+  {n:'Run-Series I',h:'Ankle · at ankle bone',p:'$92'},
+  {n:'Run-Series I',h:'Mini Crew · mid-shin',p:'$95'},
+  {n:'Run-Series I',h:'Crew · full calf',p:'$98'},
+  {n:'Run-Series I',h:'Low Cut · below ankle',p:'$89'}
+];
+document.getElementById('related').innerHTML=rel.map(r=>`<article class="pcard"><div class="pcard-img">${mediaCard()}</div><div class="pcard-body"><div class="pcard-cat">Precision</div><div class="pcard-name">${r.n}</div><div class="pcard-height">${r.h}</div><div class="pcard-price">AUD ${r.p}</div></div></article>`).join('');
+
+/* state */
+const state={col:'Carbon Black',ht:'Low Cut',sz:'M',price:89,qty:1};
+function refresh(){
+  document.getElementById('priceNow').textContent='AUD $'+state.price.toFixed(2);
+  document.getElementById('addLabel').textContent='Add to Cart — $'+(state.price*state.qty);
+  document.getElementById('saPrice').textContent=state.ht+' · '+state.sz+' · AUD $'+state.price;
+  document.getElementById('stickyAdd').textContent='Add — $'+(state.price*state.qty);
+  document.getElementById('colVal').textContent=state.col;
+  document.getElementById('htVal').textContent=state.ht;
+}
+document.querySelectorAll('#swatches .swatch').forEach(s=>s.addEventListener('click',()=>{
+  document.querySelectorAll('#swatches .swatch').forEach(x=>x.classList.remove('sel'));s.classList.add('sel');state.col=s.dataset.col;refresh();
+}));
+document.querySelectorAll('#heights .chip').forEach(c=>{if(c.disabled)return;c.addEventListener('click',()=>{
+  document.querySelectorAll('#heights .chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');state.ht=c.dataset.ht;state.price=+c.dataset.price;refresh();
+})});
+document.querySelectorAll('#sizes .chip').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('#sizes .chip').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');state.sz=c.dataset.sz;refresh();
+}));
+document.getElementById('qUp').addEventListener('click',()=>{if(state.qty<9){state.qty++;document.getElementById('qVal').textContent=state.qty;refresh()}});
+document.getElementById('qDown').addEventListener('click',()=>{if(state.qty>1){state.qty--;document.getElementById('qVal').textContent=state.qty;refresh()}});
+
+/* accordions */
+document.querySelectorAll('#acc .acc-item').forEach(it=>{
+  const a=it.querySelector('.acc-a');if(it.classList.contains('open'))a.style.maxHeight=a.scrollHeight+'px';
+  it.querySelector('.acc-q').addEventListener('click',()=>{
+    const open=it.classList.contains('open');
+    document.querySelectorAll('#acc .acc-item').forEach(x=>{x.classList.remove('open');x.querySelector('.acc-a').style.maxHeight=null});
+    if(!open){it.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}
+  });
+});
+
+/* cart + toast */
+let cart=0;const dot=document.getElementById('cartDot'),toast=document.getElementById('toast'),tmsg=document.getElementById('toastMsg');let tt;
+function showToast(m){tmsg.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2800)}
+const addBtn=document.getElementById('addBtn');
+function doAdd(){
+  cart+=state.qty;dot.textContent=cart;
+  showToast('Added — Run-Series I · '+state.ht+' · '+state.sz);
+  addBtn.classList.add('done');document.getElementById('addLabel').textContent='Added';
+  setTimeout(()=>{addBtn.classList.remove('done');refresh()},1600);
+}
+addBtn.addEventListener('click',doAdd);
+document.getElementById('stickyAdd').addEventListener('click',doAdd);
+document.getElementById('cartBtn').addEventListener('click',()=>showToast(cart?cart+' pair'+(cart>1?'s':'')+' in cart':'Your cart is empty'));
+/* size guide modal */
+const sizeModal=document.getElementById('sizeModal'),sizeRows=document.getElementById('sizeRows');let lastFocus=null;
+function markSizeRows(){sizeRows.querySelectorAll('tr').forEach(r=>r.classList.toggle('sel',r.dataset.sz===state.sz))}
+function openSize(){lastFocus=document.activeElement;markSizeRows();sizeModal.classList.add('open');sizeModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';sizeModal.querySelector('.modal-close').focus()}
+function closeSize(){sizeModal.classList.remove('open');sizeModal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+document.getElementById('sizeGuide').addEventListener('click',e=>{e.preventDefault();openSize()});
+sizeModal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',closeSize));
+sizeRows.querySelectorAll('tr').forEach(r=>r.addEventListener('click',()=>{
+  const chip=document.querySelector('#sizes .chip[data-sz="'+r.dataset.sz+'"]');
+  if(chip){chip.click();}
+  markSizeRows();showToast('Size '+r.dataset.sz+' selected');setTimeout(closeSize,180);
+}));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sizeModal.classList.contains('open'))closeSize()});
+
+/* nav + sticky atc */
+const nav=document.getElementById('nav'),stickyAtc=document.getElementById('stickyAtc'),buyAction=document.querySelector('.buy-action');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>10);
+  const r=buyAction.getBoundingClientRect();
+  stickyAtc.classList.toggle('show',r.bottom<0);
+});
+
+/* reveal */
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* shop dropdown — click/keyboard toggle (hover handled by CSS) */
+const shopItem=document.querySelector('.nav-item-shop'),shopTrigger=document.getElementById('shopTrigger');
+if(shopItem&&shopTrigger){
+  shopTrigger.addEventListener('click',e=>{e.stopPropagation();const open=shopItem.classList.toggle('open');shopTrigger.setAttribute('aria-expanded',open)});
+  document.addEventListener('click',e=>{if(!shopItem.contains(e.target)){shopItem.classList.remove('open');shopTrigger.setAttribute('aria-expanded','false')}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){shopItem.classList.remove('open');shopTrigger.setAttribute('aria-expanded','false')}});
+}
+
+/* mobile menu */
+const mm=document.getElementById('mmenu');
+document.getElementById('burger').addEventListener('click',()=>mm.classList.add('open'));
+document.getElementById('mclose').addEventListener('click',()=>mm.classList.remove('open'));
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.remove('open')));
+
+refresh();
+</script>
+</body>
+</html>
