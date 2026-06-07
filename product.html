@@ -34,13 +34,22 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
 .eyebrow.tick{display:inline-flex;align-items:center;gap:10px}.eyebrow.tick::before{content:'';width:28px;height:1px;background:var(--c-mist)}
 
 /* ANNOUNCE + NAV (shared) */
-.announce{background:var(--c-black);color:var(--c-bone);font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:9px 16px}
+.announce{background:var(--c-black);color:var(--c-bone);font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:0 16px;position:relative;height:33px;overflow:hidden}
+.announce .ai{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 8px;text-align:center;white-space:nowrap;opacity:0;visibility:hidden;transform:translateY(7px);transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out)}
+.announce .ai.active{opacity:1;visibility:visible;transform:none}
+.announce .ai svg{width:13px;height:13px;opacity:.9;flex-shrink:0}
 .announce b{color:var(--c-precision);font-weight:400}
+@media(prefers-reduced-motion:reduce){
+  .announce{height:auto;overflow:visible;padding:9px 16px;display:flex;justify-content:center;align-items:center;flex-wrap:wrap}
+  .announce .ai{position:static;inset:auto;display:inline-flex;opacity:1;visibility:visible;transform:none;padding:4px 16px;transition:none}
+  .announce .ai+.ai{border-left:1px solid rgba(248,246,240,.26)}
+}
 .nav{position:sticky;top:0;z-index:200;background:rgba(248,246,240,.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--c-mist);transition:box-shadow var(--dur-base) var(--ease-out)}
 .nav.scrolled{box-shadow:var(--sh-sm)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px)}
-.nav-logo{font-family:var(--font-ui);font-weight:800;font-size:15px;letter-spacing:.22em;text-transform:uppercase}
+.nav-logo{font-family:var(--font-ui);font-weight:800;font-size:15px;letter-spacing:.22em;text-transform:uppercase;display:inline-flex;align-items:center;line-height:0}
 .nav-logo sup{font-family:var(--font-mono);font-size:8px;color:var(--c-precision);vertical-align:super;margin-left:2px}
+.nav-logo .wordmark{height:34px;width:auto;display:block}
 .nav-links{display:flex;gap:clamp(16px,2.4vw,34px);list-style:none}
 .nav-links a{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--c-slate);position:relative;transition:color var(--dur-fast) var(--ease-out);padding:4px 0}
 .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--c-black);transition:width var(--dur-base) var(--ease-out)}
@@ -84,7 +93,13 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
 .nav-cta svg{transition:transform var(--dur-base) var(--ease-out)}
 .nav-cta:hover svg{transform:translateX(3px)}
 @media(max-width:1040px){.nav-icon[data-opt]{display:none}}
-@media(max-width:880px){.nav-links,.nav-cta{display:none}.nav-burger{display:grid;place-items:center}}
+@media(max-width:880px){
+  .nav-links,.nav-cta,.nav-primary{display:none}
+  .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:var(--sp-3)}
+  .nav-burger{display:grid;place-items:center;grid-column:1;justify-self:start}
+  .nav-logo{grid-column:2;justify-self:center}
+  .nav-actions{grid-column:3;justify-self:end}
+}
 
 /* buttons */
 .btn{font-family:var(--font-ui);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:15px 30px;border-radius:var(--r-sm);border:1.5px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:all var(--dur-base) var(--ease-out)}
@@ -147,6 +162,10 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
 .buy-stockbar{height:4px;background:var(--c-mist);border-radius:var(--r-full);overflow:hidden;margin-top:10px;width:100%}
 .buy-stockbar i{display:block;height:100%;width:62%;background:var(--c-precision)}
 .buy-desc{font-size:14.5px;color:var(--c-steel);line-height:1.75;margin-top:var(--sp-6);max-width:460px}
+.buy-stats{display:flex;gap:var(--sp-8);margin-top:var(--sp-8);padding-top:var(--sp-6);border-top:1px solid var(--c-mist);flex-wrap:wrap}
+.buy-stats .bs{min-width:92px}
+.buy-stats .bs .v{font-family:var(--font-display);font-size:26px;line-height:1}
+.buy-stats .bs .l{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--c-slate);margin-top:6px}
 
 /* selectors */
 .opt{margin-top:var(--sp-8)}
@@ -263,7 +282,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
 /* FOOTER */
 .foot{background:var(--c-ink);color:var(--c-bone);padding:clamp(56px,8vw,88px) 0 var(--sp-10)}
 .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--sp-8);padding-bottom:var(--sp-12);border-bottom:1px solid var(--c-charcoal)}
-.foot-brand .fb-logo{font-family:var(--font-ui);font-weight:800;font-size:18px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:var(--sp-4)}
+.foot-brand .fb-logo{font-family:var(--font-ui);font-weight:800;font-size:18px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:var(--sp-4);line-height:0}
+.foot-brand .fb-logo .wordmark{height:44px;width:auto;display:block;filter:brightness(0) invert(1)}
 .foot-brand p{font-size:13px;color:var(--c-silver);line-height:1.7;max-width:300px}
 .foot-col h4{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--c-silver);margin-bottom:var(--sp-5)}
 .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:var(--sp-3)}
@@ -333,11 +353,17 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
 </head>
 <body>
 
-<div class="announce">Run 001 — Precision Series · Now Live · <b>76 / 200 pairs remain</b> · Free express shipping over AUD $120</div>
+<div class="announce">
+  <span class="ai active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4"/><path d="M4 4c3-1.5 6 1.5 9 0s5-1.5 7 0v9c-2-1.5-4 .5-7 0s-6 1.5-9 0"/></svg>Made in Australia</span>
+  <span class="ai">30-Day Fit Guarantee</span>
+  <span class="ai">Free Shipping over $99</span>
+  <span class="ai">30+ Years Experience</span>
+</div>
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">DuoStep<sup>AU</sup></a>
+    <button class="nav-burger nav-icon" aria-label="Menu" id="burger"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <a href="index.html" class="nav-logo" aria-label="DuoStep — home"><img class="wordmark" src="DuoStep-wordmark-black-transparent.png" alt="DuoStep" width="1249" height="550"></a>
     <nav class="nav-primary" aria-label="Primary">
       <ul class="nav-links">
         <li class="nav-item-shop">
@@ -356,8 +382,8 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
               <div class="sp-col sp-col-div">
                 <div class="sp-eyebrow">The House</div>
                 <a class="sp-div" href="index.html#divisions" role="menuitem"><span class="dn">Precision</span><span class="st on">● Live</span></a>
-                <a class="sp-div" href="index.html#signup" role="menuitem"><span class="dn">Odyssey</span><span class="st">Soon</span></a>
                 <a class="sp-div" href="index.html#signup" role="menuitem"><span class="dn">Wellness</span><span class="st">Soon</span></a>
+                <a class="sp-div" href="index.html#signup" role="menuitem"><span class="dn">Odyssey</span><span class="st">Soon</span></a>
                 <a class="sp-div" href="index.html#signup" role="menuitem"><span class="dn">Custom Lab</span><span class="st">Collabs</span></a>
               </div>
             </div>
@@ -374,13 +400,12 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
       <button class="nav-icon" data-opt aria-label="Account"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
       <button class="nav-icon" aria-label="Cart" id="cartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="dot" id="cartDot">0</span></button>
       <a href="index.html#drop" class="nav-cta">Shop the Drop <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg></a>
-      <button class="nav-burger nav-icon" aria-label="Menu" id="burger"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
 </header>
 
 <div class="mmenu" id="mmenu">
-  <div class="mmenu-top"><span class="nav-logo">DuoStep<sup>AU</sup></span>
+  <div class="mmenu-top"><span class="nav-logo"><img class="wordmark" src="DuoStep-wordmark-black-transparent.png" alt="DuoStep" width="1249" height="550"></span>
     <button class="nav-icon" id="mclose" aria-label="Close menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
   <div class="mmenu-eyebrow"><span class="live"></span>Run 001 · Live · 76 pairs remain</div>
   <nav class="mmenu-nav" aria-label="Mobile">
@@ -389,7 +414,7 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
     <a href="index.html#divisions">The House</a>
     <a href="index.html#story">About</a>
   </nav>
-  <a href="index.html#drop" class="btn btn-precision mmenu-cta">Shop the Precision Drop <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+  <a href="index.html#drop" class="btn btn-precision mmenu-cta">Shop the Drop <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
   <div class="mmenu-trust"><span>Free express over $120</span><span>30-day returns</span><span>Australian made</span></div>
 </div>
 
@@ -514,6 +539,13 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
           <div class="acc-a"><div class="acc-a-inner">Dispatched within 1–2 business days from our Australian workshop. Free express shipping on orders over AUD $120. 30-day returns on unworn pairs in original packaging — straightforward, no friction.</div></div>
         </div>
       </div>
+
+      <!-- ENGINEERING STATS (moved from homepage hero) -->
+      <div class="buy-stats">
+        <div class="bs"><div class="v">In-house</div><div class="l">Design + Make</div></div>
+        <div class="bs"><div class="v">18.5μ</div><div class="l">Merino Inlay</div></div>
+        <div class="bs"><div class="v">200</div><div class="l">Pairs / Run</div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -593,12 +625,12 @@ a{color:inherit;text-decoration:none}img{max-width:100%;display:block}button{fon
 <footer class="foot">
   <div class="wrap">
     <div class="foot-top">
-      <div class="foot-brand"><div class="fb-logo">DuoStep</div><p>Luxury athletic socks, designed and manufactured in-house in Australia. Released in finite runs.</p></div>
+      <div class="foot-brand"><div class="fb-logo"><img class="wordmark" src="DuoStep-wordmark-black-transparent.png" alt="DuoStep" width="1249" height="550"></div><p>Luxury athletic socks, designed and manufactured in-house in Australia. Released in finite runs.</p></div>
       <div class="foot-col"><h4>Shop</h4><ul><li><a href="index.html#drop">The Precision Drop</a></li><li><a href="product.html">Run-Series I</a></li><li><a href="#">Size Guide</a></li><li><a href="#">Gift Cards</a></li></ul></div>
       <div class="foot-col"><h4>The House</h4><ul><li><a href="index.html#story">Made in Australia</a></li><li><a href="index.html#engineered">Engineering</a></li><li><a href="index.html#divisions">Divisions</a></li><li><a href="#">Custom Lab</a></li></ul></div>
       <div class="foot-col"><h4>Support</h4><ul><li><a href="#">Shipping &amp; Returns</a></li><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li><li><a href="#">Care Guide</a></li></ul></div>
     </div>
-    <div class="foot-bottom"><p>© 2026 DuoStep · Australian Made</p><p>PRECISION · ODYSSEY · WELLNESS · CUSTOM LAB</p></div>
+    <div class="foot-bottom"><p>© 2026 DuoStep · Australian Made</p><p>PRECISION · WELLNESS · ODYSSEY · CUSTOM LAB</p></div>
   </div>
 </footer>
 
@@ -737,6 +769,14 @@ sizeRows.querySelectorAll('tr').forEach(r=>r.addEventListener('click',()=>{
   markSizeRows();showToast('Size '+r.dataset.sz+' selected');setTimeout(closeSize,180);
 }));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&sizeModal.classList.contains('open'))closeSize()});
+
+/* rotating announcement bar */
+(function(){
+  const items=document.querySelectorAll('.announce .ai');
+  if(items.length<2||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  let i=0;
+  setInterval(()=>{items[i].classList.remove('active');i=(i+1)%items.length;items[i].classList.add('active')},3500);
+})();
 
 /* nav + sticky atc */
 const nav=document.getElementById('nav'),stickyAtc=document.getElementById('stickyAtc'),buyAction=document.querySelector('.buy-action');
